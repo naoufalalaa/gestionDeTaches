@@ -135,7 +135,7 @@ public class MetierImp implements IMetier{
         List<Tache> taches=new ArrayList<>();
         Connection conn=db.getConnection();
         try{
-            PreparedStatement pstm=conn.prepareStatement("select * from  tache");
+            PreparedStatement pstm=conn.prepareStatement("select * from tache");
             ResultSet rs=pstm.executeQuery();
             while(rs.next()){
                 PreparedStatement pstm2=conn.prepareStatement("select * from  intervention WHERE ID_TACHE=?");
@@ -143,7 +143,7 @@ public class MetierImp implements IMetier{
                 List<Intervention> interventions=new ArrayList<>();
                 ResultSet rs2=pstm2.executeQuery();
                 while(rs2.next()){
-                    //Intervention t=new Intervention(rs2.getString("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getString("START_DATE"),rs.getString("END_DATE"),rs.getString("STATUT"));
+                    interventions.add(new Intervention(rs.));
 
 
                 }
@@ -159,6 +159,17 @@ public class MetierImp implements IMetier{
 
     @Override
     public List<Tache> findTacheParMC(String motCle) {
+        Connection conn = db.getConnection();
+        List<Tache> taches = new ArrayList<>();
+        try{
+            Statement pstm = conn.createStatement();
+            ResultSet rs = pstm.executeQuery("select * from intervention WHERE TITRE LIKE '%"+motCle+"%' OR DESCRIPTION '%"+motCle+"%'");
+            while (rs.next()){
+                taches.add(new Tache(rs.getString("")))
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -172,9 +183,7 @@ public class MetierImp implements IMetier{
             pstm.setString(1,m.getREFERENCE());
             pstm.setString(2,m.getNOM());
             pstm.setInt(3,m.getMODEL());
-
             pstm.executeUpdate();
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -184,13 +193,9 @@ public class MetierImp implements IMetier{
     public void deleteMachine(Machine m) {
         Connection conn=db.getConnection();
         try {
-
             PreparedStatement pstm=conn.prepareStatement("DELETE FROM machine where REFERENCE = ? ");
             pstm.setString(1,m.getREFERENCE());
-
-
             pstm.executeUpdate();
-
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -215,8 +220,8 @@ public class MetierImp implements IMetier{
     @Override
     public List<Machine> getAllMachines() {
          List<Machine> machines = new ArrayList<>();
+         Connection conn = db.getConnection();
         try{
-            Connection conn = db.getConnection();
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM machine");
             while(rs.next()){
@@ -231,8 +236,8 @@ public class MetierImp implements IMetier{
     @Override
     public List<Machine> findMachineParMC(String motCle) {
         List<Machine> machines = new ArrayList<>();
+        Connection conn = db.getConnection();
         try{
-            Connection conn = db.getConnection();
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM machine WHERE REFERENCE like '%"+motCle+"%' OR NOM LIKE '%"+motCle+"%' OR MODEL Like '%"+motCle+"%'");
             while (rs.next()){

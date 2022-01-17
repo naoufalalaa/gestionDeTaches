@@ -3,19 +3,16 @@ package metier;
 public class Intervention {
         private Intervenant intervenant;
         private Tache tache;
-        private String START_DATE;
-        private String END_DATE;
+        private String date_END;
+        private String date_START;
+        private String status;
 
-        public Intervention(Intervenant intervenant, Tache tache, String START_DATE, String END_DATE) {
+        public Intervention(Intervenant intervenant, Tache tache, String date_END, String date_START, String status) {
                 this.intervenant = intervenant;
                 this.tache = tache;
-                this.START_DATE = START_DATE;
-                this.END_DATE = END_DATE;
-        }
-        public Intervention(String START_DATE, String END_DATE) {
-
-                this.START_DATE = START_DATE;
-                this.END_DATE = END_DATE;
+                this.date_END = date_END;
+                this.date_START = date_START;
+                this.status = status;
         }
 
         public Intervenant getIntervenant() {
@@ -34,19 +31,4 @@ public class Intervention {
                 this.tache = tache;
         }
 
-        public String getSTART_DATE() {
-                return START_DATE;
-        }
-
-        public void setSTART_DATE(String START_DATE) {
-                this.START_DATE = START_DATE;
-        }
-
-        public String getEND_DATE() {
-                return END_DATE;
-        }
-
-        public void setEND_DATE(String END_DATE) {
-                this.END_DATE = END_DATE;
-        }
 }

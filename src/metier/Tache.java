@@ -7,9 +7,6 @@ public class Tache {
     private String TITRE;
     private String DESCRIPTION;
     private String MATERIELS;
-    private String START_DATE;
-    private String END_DATE;
-    private String STATUT;
     private Panne PANNE;
     private List<Intervention> interventions;
 
