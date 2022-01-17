@@ -17,6 +17,14 @@ public interface IMetier {
     List<Tache> findTacheParMC(String motCle);
 
 
+    void addMachine(Machine m);
+    void deleteMachine(Machine m);
+    void updateMachine(Machine m, Machine old);
+
+    List<Machine> getAllMachines();
+    List<Machine> findMachineParMC(String motCle);
+
+
 
 
 }

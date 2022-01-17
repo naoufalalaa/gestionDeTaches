@@ -3,12 +3,13 @@ package metier;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import DAO.SignletonConnectionDB;
 
 public class MetierImp implements IMetier{
-    private  SignletonConnectionDB db=new SignletonConnectionDB();
+    private final SignletonConnectionDB db=new SignletonConnectionDB();
 
     @Override
     public void addIntervenant(Intervenant p) {
@@ -82,12 +83,14 @@ public class MetierImp implements IMetier{
         Connection conn=db.getConnection();
         try {
             PreparedStatement pstm=conn.prepareStatement("DELETE FROM user WHERE ID_USER=?");
-            pstm.setInt(1,p.getID_USER());
+          //  pstm.setInt(1,p.getID_USER());
             pstm.executeUpdate();
             return  null;
-        }catch (Exception e){
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
+        return  null;
     }
 
 
@@ -140,12 +143,12 @@ public class MetierImp implements IMetier{
                 List<Intervention> interventions=new ArrayList<>();
                 ResultSet rs2=pstm2.executeQuery();
                 while(rs2.next()){
-                    Intervention t=new Intervention(rs2.getString("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getString("START_DATE"),rs.getString("END_DATE"),rs.getString("STATUT"));
+                    //Intervention t=new Intervention(rs2.getString("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getString("START_DATE"),rs.getString("END_DATE"),rs.getString("STATUT"));
 
 
                 }
-                Tache t=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getString("START_DATE"),rs.getString("END_DATE"),rs.getString("STATUT"));
-                taches.add(t);
+              //  Tache t=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getString("START_DATE"),rs.getString("END_DATE"),rs.getString("STATUT"));
+               // taches.add(t);
             }
         }catch (Exception e)
         {
@@ -157,5 +160,87 @@ public class MetierImp implements IMetier{
     @Override
     public List<Tache> findTacheParMC(String motCle) {
         return null;
+    }
+
+
+
+    @Override
+    public void addMachine(Machine m) {
+        Connection conn=db.getConnection();
+        try {
+            PreparedStatement pstm=conn.prepareStatement("insert into machine(REFERENCE,NOM,MODEL) values (?,?,?)");
+            pstm.setString(1,m.getREFERENCE());
+            pstm.setString(2,m.getNOM());
+            pstm.setInt(3,m.getMODEL());
+
+            pstm.executeUpdate();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteMachine(Machine m) {
+        Connection conn=db.getConnection();
+        try {
+
+            PreparedStatement pstm=conn.prepareStatement("DELETE FROM machine where REFERENCE = ? ");
+            pstm.setString(1,m.getREFERENCE());
+
+
+            pstm.executeUpdate();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateMachine(Machine m, Machine old) {
+        Connection conn=db.getConnection();
+        try {
+            PreparedStatement pstm=conn.prepareStatement("UPDATE machine SET NOM=? , MODEL = ? WHERE REFERENCE = ?");
+            pstm.setString(1,m.getNOM());
+            pstm.setInt(2,m.getMODEL());
+            pstm.setString(3,m.getREFERENCE());
+
+            pstm.executeUpdate();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Machine> getAllMachines() {
+         List<Machine> machines = new ArrayList<>();
+        try{
+            Connection conn = db.getConnection();
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT * FROM machine");
+            while(rs.next()){
+                machines.add(new Machine(rs.getString("REFERENCE"),rs.getString("NOM"),rs.getInt("MODEL")));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return machines ;
+    }
+
+    @Override
+    public List<Machine> findMachineParMC(String motCle) {
+        List<Machine> machines = new ArrayList<>();
+        try{
+            Connection conn = db.getConnection();
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT * FROM machine WHERE REFERENCE like '%"+motCle+"%' OR NOM LIKE '%"+motCle+"%' OR MODEL Like '%"+motCle+"%'");
+            while (rs.next()){
+                machines.add(new Machine(rs.getString("REFERENCE"),rs.getString("NOM"),rs.getInt("MODEL")));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return machines;
     }
 }
