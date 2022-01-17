@@ -12,6 +12,22 @@ public class MetierImp implements IMetier{
     private final SignletonConnectionDB db=new SignletonConnectionDB();
 
     @Override
+    public Panne getPanneTache(Tache tache) {
+        Connection conn = db.getConnection();
+        Panne panne = null;
+        try {
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT * FROM Panne WHERE ID_PANNE = "+tache.getPANNE().getID_PANNE());
+            while (rs.next()){
+                panne = new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("START_DATE"),rs.getString("END_DATE"),rs.getString("REFERENCE"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return panne;
+    }
+
+    @Override
     public void addIntervenant(Intervenant p) {
         Connection conn=db.getConnection();
         try {
@@ -143,7 +159,7 @@ public class MetierImp implements IMetier{
                 List<Intervention> interventions=new ArrayList<>();
                 ResultSet rs2=pstm2.executeQuery();
                 while(rs2.next()){
-                    interventions.add(new Intervention(rs.));
+                    //interventions.add(new Intervention(rs.));
 
 
                 }
@@ -163,9 +179,14 @@ public class MetierImp implements IMetier{
         List<Tache> taches = new ArrayList<>();
         try{
             Statement pstm = conn.createStatement();
-            ResultSet rs = pstm.executeQuery("select * from intervention WHERE TITRE LIKE '%"+motCle+"%' OR DESCRIPTION '%"+motCle+"%'");
+            ResultSet rs = pstm.executeQuery("select * from tache WHERE TITRE LIKE '%"+motCle+"%' OR DESCRIPTION '%"+motCle+"%'");
             while (rs.next()){
-                taches.add(new Tache(rs.getString("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),));
+                Statement stpm = conn.createStatement();
+                ResultSet es = stpm.executeQuery("SELECT * FROM PANNE WHERE ID_PANNE="+rs.getInt("ID_PANNE"));
+                while (es.next()){
+                    Panne panne = new Panne(es.getInt("ID_PANNE"),es.getString("TITRE"),es.getString("DESCRIPTION"),es.getString("START_DATE"),es.getString("END_DATE"),es.getString("REFERENCE"));
+                    taches.add(new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getString("START_DATE"),rs.getString("END_DATE"),rs.getString("STATUS"),panne));
+                }
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -176,6 +197,7 @@ public class MetierImp implements IMetier{
     @Override
     public Tache getTacheByID(int ID) {
         Connection conn = db.getConnection();
+        Tache tache = null;
         try{
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM tache WHERE ID_TACHE = "+ID);
@@ -184,16 +206,18 @@ public class MetierImp implements IMetier{
                 ResultSet rs1 = stm1.executeQuery("SELECT * FROM panne WHERE ID_PANNE = "+rs.getInt("ID_PANNE"));
                 Panne panne = new Panne(rs.getInt("ID_PANNE"), rs1.getString("TITRE") , rs1.getString("DESCRIPTION"), rs1.getString("START_DATE") , rs1.getString("END_DATE") , rs1.getString("REFERENCE"));
                 Statement stm2 = conn.createStatement();
-                ResultSet rs2 = stm2.executeQuery("SELECT * FROM intervention");
-                return new Tache(ID, rs.getString("TITRE") , rs.getString("DESCRIPTION") , rs.getString("MATERIELS") , rs.getString("START_DATE") , rs.getString("END_DATE") , rs.getString("STATUS") , panne ,  );
+                tache = new Tache(ID, rs.getString("TITRE") , rs.getString("DESCRIPTION") , rs.getString("MATERIELS") , rs.getString("START_DATE") , rs.getString("END_DATE") , rs.getString("STATUS") , panne );
             }
         }catch (Exception e){
             e.printStackTrace();
         }
-        return null;
+        return tache;
     }
 
+    //to check
 
+
+    //to check
     @Override
     public List<Intervention> getTacheInterventions(int ID_TACHE) {
         List<Intervention> interventions = new ArrayList<>();
@@ -202,11 +226,18 @@ public class MetierImp implements IMetier{
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM intervention WHERE ID_TACHE = "+ID_TACHE);
             while (rs.next()){
-                interventions.add(new Intervention());
+                Statement user = conn.createStatement();
+                ResultSet us = user.executeQuery("SELECT * FROM USER WHERE ID_USER = "+rs.getInt("ID_USER"));
+                while (us.next()){
+                    Intervenant intervenant = new Intervenant(us.getInt("ID_USER"),us.getString("NOM"),us.getString("PRENOM"),us.getString("TELEPHONE"),us.getString("EMAIL") );
+                    interventions.add(new Intervention(intervenant , getTacheByID(ID_TACHE) , rs.getString("START_DATE"),rs.getString("END_DATE")));
+
+                }
             }
         }catch(Exception e){
             e.printStackTrace();
         }
+        return interventions;
     }
 
 
@@ -226,7 +257,7 @@ public class MetierImp implements IMetier{
 
     @Override
     public void deleteMachine(Machine m) {
-        Connection conn=db.getConnection();
+        Connection conn = db.getConnection();
         try {
             PreparedStatement pstm=conn.prepareStatement("DELETE FROM machine where REFERENCE = ? ");
             pstm.setString(1,m.getREFERENCE());

@@ -3,7 +3,7 @@ package metier;
 import java.util.List;
 
 public interface IMetier {
-
+    Panne getPanneTache(Tache tache);
     void addIntervenant(Intervenant p);
     void deleteIntervenant(Intervenant p);
     void updateIntervenant(Intervenant p);

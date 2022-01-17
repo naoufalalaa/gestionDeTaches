@@ -26,7 +26,16 @@ public class User {
         this.LOGIN = LOGIN;
         this.PASSWORD = PASSWORD;
     }
- public User() {
+
+    public User(int ID_USER, String NOM, String PRENOM, String TELEPHONE, String EMAIL) {
+        this.ID_USER = ID_USER;
+        this.NOM = NOM;
+        this.PRENOM = PRENOM;
+        this.TELEPHONE = TELEPHONE;
+        this.EMAIL = EMAIL;
+    }
+
+    public User() {
 
     }
 

@@ -1,7 +1,5 @@
 package metier;
 
-import java.util.List;
-
 public class Tache {
     private int ID_TACHE;
     private String TITRE;
@@ -12,7 +10,7 @@ public class Tache {
     private String STATUT;
     private Panne PANNE;
 
-    public Tache(int ID_TACHE, String TITRE, String DESCRIPTION, String MATERIELS, String START_DATE, String END_DATE, String STATUT, Panne PANNE, List<Intervention> interventions) {
+    public Tache(int ID_TACHE, String TITRE, String DESCRIPTION, String MATERIELS, String START_DATE, String END_DATE, String STATUT, Panne PANNE) {
         this.ID_TACHE = ID_TACHE;
         this.TITRE = TITRE;
         this.DESCRIPTION = DESCRIPTION;
