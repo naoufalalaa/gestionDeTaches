@@ -165,14 +165,49 @@ public class MetierImp implements IMetier{
             Statement pstm = conn.createStatement();
             ResultSet rs = pstm.executeQuery("select * from intervention WHERE TITRE LIKE '%"+motCle+"%' OR DESCRIPTION '%"+motCle+"%'");
             while (rs.next()){
-                taches.add(new Tache(rs.getString("")))
+                taches.add(new Tache(rs.getString("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),));
             }
         }catch(Exception e){
+            e.printStackTrace();
+        }
+        return taches;
+    }
+
+    @Override
+    public Tache getTacheByID(int ID) {
+        Connection conn = db.getConnection();
+        try{
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT * FROM tache WHERE ID_TACHE = "+ID);
+            while (rs.next()){
+                Statement stm1 = conn.createStatement();
+                ResultSet rs1 = stm1.executeQuery("SELECT * FROM panne WHERE ID_PANNE = "+rs.getInt("ID_PANNE"));
+                Panne panne = new Panne(rs.getInt("ID_PANNE"), rs1.getString("TITRE") , rs1.getString("DESCRIPTION"), rs1.getString("START_DATE") , rs1.getString("END_DATE") , rs1.getString("REFERENCE"));
+                Statement stm2 = conn.createStatement();
+                ResultSet rs2 = stm2.executeQuery("SELECT * FROM intervention");
+                return new Tache(ID, rs.getString("TITRE") , rs.getString("DESCRIPTION") , rs.getString("MATERIELS") , rs.getString("START_DATE") , rs.getString("END_DATE") , rs.getString("STATUS") , panne ,  );
+            }
+        }catch (Exception e){
             e.printStackTrace();
         }
         return null;
     }
 
+
+    @Override
+    public List<Intervention> getTacheInterventions(int ID_TACHE) {
+        List<Intervention> interventions = new ArrayList<>();
+        Connection conn = db.getConnection();
+        try{
+            Statement stm = conn.createStatement();
+            ResultSet rs = stm.executeQuery("SELECT * FROM intervention WHERE ID_TACHE = "+ID_TACHE);
+            while (rs.next()){
+                interventions.add(new Intervention());
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 
 
     @Override
@@ -247,5 +282,10 @@ public class MetierImp implements IMetier{
             e.printStackTrace();
         }
         return machines;
+    }
+
+    @Override
+    public Machine getMachineByID(int ID) {
+        return null;
     }
 }

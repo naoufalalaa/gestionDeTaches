@@ -3,16 +3,14 @@ package metier;
 public class Intervention {
         private Intervenant intervenant;
         private Tache tache;
-        private String date_END;
-        private String date_START;
-        private String status;
+        private String START_DATE;
+        private String END_DATE;
 
-        public Intervention(Intervenant intervenant, Tache tache, String date_END, String date_START, String status) {
+        public Intervention(Intervenant intervenant, Tache tache, String START_DATE, String END_DATE) {
                 this.intervenant = intervenant;
                 this.tache = tache;
-                this.date_END = date_END;
-                this.date_START = date_START;
-                this.status = status;
+                this.START_DATE = START_DATE;
+                this.END_DATE = END_DATE;
         }
 
         public Intervenant getIntervenant() {

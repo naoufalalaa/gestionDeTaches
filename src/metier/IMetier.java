@@ -15,7 +15,9 @@ public interface IMetier {
     void updateTache(Tache t);
     List<Tache> getAllTaches();
     List<Tache> findTacheParMC(String motCle);
+    Tache getTacheByID(int ID);
 
+    List<Intervention> getTacheInterventions(int ID_TACHE);
 
     void addMachine(Machine m);
     void deleteMachine(Machine m);
@@ -23,6 +25,7 @@ public interface IMetier {
 
     List<Machine> getAllMachines();
     List<Machine> findMachineParMC(String motCle);
+    Machine getMachineByID(int ID);
 
 
 
