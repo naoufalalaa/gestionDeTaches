@@ -17,6 +17,10 @@ public class Panne {
         this.REFERENCE = REFERENCE;
     }
 
+    public Panne() {
+
+    }
+
     public int getID_PANNE() {
         return ID_PANNE;
     }
