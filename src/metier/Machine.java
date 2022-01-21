@@ -11,6 +11,10 @@ public class Machine {
         this.MODEL = MODEL;
     }
 
+    public Machine() {
+
+    }
+
     public String getREFERENCE() {
         return REFERENCE;
     }
