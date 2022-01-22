@@ -1,5 +1,7 @@
 package metier;
 
+import com.jfoenix.controls.JFXComboBox;
+
 import java.util.List;
 
 public class Tache {
@@ -11,9 +13,9 @@ public class Tache {
     private String END_DATE;
     private String STATUT;
     private Panne PANNE;
-    private List<Intervention> interventions;
+    private Intervenant INTERVENANT;
 
-    public Tache(int ID_TACHE, String TITRE, String DESCRIPTION, String MATERIELS, String START_DATE, String END_DATE, String STATUT, Panne PANNE, List<Intervention> interventions) {
+    public Tache(int ID_TACHE, String TITRE, String DESCRIPTION, String MATERIELS, String START_DATE, String END_DATE, String STATUT, Panne PANNE, Intervenant INTERVENANT) {
         this.ID_TACHE = ID_TACHE;
         this.TITRE = TITRE;
         this.DESCRIPTION = DESCRIPTION;
@@ -22,11 +24,19 @@ public class Tache {
         this.END_DATE = END_DATE;
         this.STATUT = STATUT;
         this.PANNE = PANNE;
-        this.interventions = interventions;
+        this.INTERVENANT = INTERVENANT;
     }
-
-
-    public Tache(String TITRE, String DESCRIPTION, String MATERIELS, String START_DATE, String END_DATE, String STATUT, Panne PANNE, List<Intervention> interventions) {
+    public Tache(int ID_TACHE, String TITRE, String DESCRIPTION, String MATERIELS, String START_DATE, String END_DATE, String STATUT, Intervenant INTERVENANT) {
+        this.ID_TACHE = ID_TACHE;
+        this.TITRE = TITRE;
+        this.DESCRIPTION = DESCRIPTION;
+        this.MATERIELS = MATERIELS;
+        this.START_DATE = START_DATE;
+        this.END_DATE = END_DATE;
+        this.STATUT = STATUT;
+        this.INTERVENANT = INTERVENANT;
+    }
+    public Tache(String TITRE, String DESCRIPTION, String MATERIELS, String START_DATE, String END_DATE, String STATUT,Panne PANNE, Intervenant INTERVENANT) {
         this.TITRE = TITRE;
         this.DESCRIPTION = DESCRIPTION;
         this.MATERIELS = MATERIELS;
@@ -34,16 +44,10 @@ public class Tache {
         this.END_DATE = END_DATE;
         this.STATUT = STATUT;
         this.PANNE = PANNE;
-        this.interventions = interventions;
+        this.INTERVENANT = INTERVENANT;
     }
-    public Tache(String TITRE, String DESCRIPTION, String MATERIELS, String START_DATE, String END_DATE, String STATUT, Panne PANNE) {
-        this.TITRE = TITRE;
-        this.DESCRIPTION = DESCRIPTION;
-        this.MATERIELS = MATERIELS;
-        this.START_DATE = START_DATE;
-        this.END_DATE = END_DATE;
-        this.STATUT = STATUT;
-        this.PANNE = PANNE;
+    public Tache() {
+
     }
 
     public int getID_TACHE() {
@@ -110,11 +114,11 @@ public class Tache {
         this.PANNE = PANNE;
     }
 
-    public List<Intervention> getInterventions() {
-        return interventions;
+    public Intervenant getINTERVENANT() {
+        return INTERVENANT;
     }
 
-    public void setInterventions(List<Intervention> interventions) {
-        this.interventions = interventions;
+    public void setINTERVENANT(Intervenant INTERVENANT) {
+        this.INTERVENANT = INTERVENANT;
     }
 }

@@ -1,0 +1,16 @@
+
+
+.search:focused {
+    -fx-fill: #29b582;
+}
+
+.machine  {
+    -fx-background-radius: 1em;
+    -fx-background-color: white;
+}
+
+.status{
+    -fx-background-color: #29b582;
+    -fx-background-radius: 1em;
+}
+
