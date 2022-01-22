@@ -115,7 +115,7 @@ public class UsersController implements Initializable{
         //get the current stage (main window) and hide it
         Stage previousStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         previousStage.hide();
-
+        System.out.println("hgh");
 
 
         //load the update window
