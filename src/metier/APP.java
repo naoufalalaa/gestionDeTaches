@@ -10,7 +10,7 @@ public class APP {
         //metier.editeDepartement(new Departement());
        // System.out.println(metier.findPanneByReferenceMachine("9FS8F7S8F7S87F?").getTITRE());
        // System.out.println(metier.findTacheByIDPanne(metier.findPanneByTitre("jhj").getID_PANNE()).get(2).getID_TACHE());
-        System.out.println(metier.findTacheParID(3).getDESCRIPTION());
+        System.out.println(metier.findPanneByReferenceMachine("9FS8F7S8F7S87F").getTITRE());
 
     }
 }

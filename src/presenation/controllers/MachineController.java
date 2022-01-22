@@ -80,7 +80,6 @@ public class MachineController implements Initializable
             nom_machine.setText(machine.getNOM());
             //we want to get pane by machine and use it here like
             System.out.println(machine.getREFERENCE());
-            System.out.println(metier.findPanneByReferenceMachine("9FS8F7S8F7S87F?").getTITRE());
             titre_pane.setText(metier.findPanneByReferenceMachine(machine.getREFERENCE()).getTITRE());
             description_pane.setText(metier.findPanneByReferenceMachine(machine.getREFERENCE()).getDESCRIPTION());
             start_date_pane.setText(metier.findPanneByReferenceMachine(machine.getREFERENCE()).getSTART_DATE());
