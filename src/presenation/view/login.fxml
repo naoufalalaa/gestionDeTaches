@@ -17,7 +17,7 @@
             <DropShadow />
          </effect>
          <children>
-            <JFXTextField fx:id="email" labelFloat="true" layoutX="52.0" layoutY="109.0" prefHeight="26.0" prefWidth="214.0" promptText="Email" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="23.0" />
+            <JFXTextField fx:id="username" labelFloat="true" layoutX="52.0" layoutY="109.0" prefHeight="26.0" prefWidth="214.0" promptText="Username" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="23.0" />
             <JFXPasswordField fx:id="password" labelFloat="true" layoutX="52.0" layoutY="202.0" prefHeight="26.0" prefWidth="214.0" promptText="Password" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="23.0" />
             <Text layoutX="55.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in" wrappingWidth="86.7294921875">
                <font>
