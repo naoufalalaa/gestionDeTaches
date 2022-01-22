@@ -65,7 +65,7 @@
                   <Font name="FreeMono Bold" size="24.0" />
                </font>
             </Text>
-            <Text fx:id="panne_title" fill="WHITE" layoutX="261.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="disque dure .." wrappingWidth="509.5537109375">
+            <Text fx:id="panne_title" fill="WHITE" layoutX="261.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0"  wrappingWidth="509.5537109375">
                <font>
                   <Font name="FreeMono Bold" size="24.0" />
                </font>

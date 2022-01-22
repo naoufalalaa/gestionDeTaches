@@ -9,7 +9,13 @@ public class Intervenant extends User {
         super( NOM, PRENOM, TELEPHONE, EMAIL, LOGIN, PASSWORD);
     }
 
-    public Intervenant(int ID_USER, String NOM, String PRENOM, String TELEPHONE, String EMAIL) {
-        super(ID_USER, NOM, PRENOM, TELEPHONE, EMAIL);
+    @Override
+    public String toString() {
+        return super.getNOM();
     }
+
+    public Intervenant() {
+    }
+
+
 }

@@ -6,17 +6,21 @@ public class Panne {
     private String DESCRIPTION;
     private String START_DATE;
     private String END_DATE;
-    private String REFERENCE;
+    private Machine machine;
 
-    public Panne(int ID_PANNE, String TITRE, String DESCRIPTION, String START_DATE, String END_DATE, String REFERENCE) {
+    public Panne(int ID_PANNE, String TITRE, String DESCRIPTION, String START_DATE, String END_DATE) {
         this.ID_PANNE = ID_PANNE;
         this.TITRE = TITRE;
         this.DESCRIPTION = DESCRIPTION;
         this.START_DATE = START_DATE;
         this.END_DATE = END_DATE;
-        this.REFERENCE = REFERENCE;
     }
-
+    public Panne(String TITRE, String DESCRIPTION, String START_DATE, String END_DATE) {
+        this.TITRE = TITRE;
+        this.DESCRIPTION = DESCRIPTION;
+        this.START_DATE = START_DATE;
+        this.END_DATE = END_DATE;
+    }
     public Panne() {
 
     }
@@ -59,5 +63,10 @@ public class Panne {
 
     public void setEND_DATE(String END_DATE) {
         this.END_DATE = END_DATE;
+    }
+
+    @Override
+    public String toString() {
+        return TITRE;
     }
 }

@@ -10,6 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -19,14 +21,18 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import metier.Machine;
+import metier.IMetier;
+import metier.MetierImp;
+import metier.Panne;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class MachinesController implements Initializable{
-
+    private IMetier metier;
     @FXML
     private JFXButton addmachinebutton;
 
@@ -41,60 +47,7 @@ public class MachinesController implements Initializable{
 
 
 
-    //two vars used for displaying machines
-    private List<Machine> machinesList;
 
-    public List<Machine> getMachinesList() {
-        List<Machine> machines = new ArrayList<>();
-        Machine machine1 = new Machine();
-        machine1.setNOM("machine 1");
-        machine1.setREFERENCE("#33U844");
-        machine1.setMODEL(2011);
-        machines.add(machine1);
-
-        Machine machine2 = new Machine();
-        machine2.setNOM("machine 2");
-        machine2.setREFERENCE("#4994949");
-        machine2.setMODEL(2018);
-        machines.add(machine2);
-
-        Machine machine3 = new Machine();
-        machine3.setNOM("machine 3");
-        machine3.setREFERENCE("#73718398");
-        machine3.setMODEL(2019);
-        machines.add(machine3);
-
-
-        Machine machine4 = new Machine();
-        machine4.setNOM("machine 3");
-        machine4.setREFERENCE("#73718398");
-        machine4.setMODEL(2006);
-        machines.add(machine4);
-
-
-        machine1.setNOM("machine 1");
-        machine1.setREFERENCE("#33U844");
-        machine1.setMODEL(2005);
-        machines.add(machine1);
-
-        machine2.setNOM("machine 2");
-        machine2.setREFERENCE("#4994949");
-        machine2.setMODEL(2004);
-        machines.add(machine2);
-
-        machine3.setNOM("machine 3");
-        machine3.setREFERENCE("#73718398");
-        machine3.setMODEL(2003);
-        machines.add(machine3);
-
-
-        machine4.setNOM("machine 3");
-        machine4.setREFERENCE("#73718398");
-        machine4.setMODEL(2001);
-        machines.add(machine4);
-
-        return machines;
-    }
 
 
 
@@ -108,6 +61,7 @@ public class MachinesController implements Initializable{
             addmachinebutton.setVisible(false);
         }
         */
+        metier=new MetierImp();
 
         //add button
         addmachinebutton.addEventHandler(ActionEvent.ACTION, event ->{
@@ -150,8 +104,15 @@ public class MachinesController implements Initializable{
 
 
             add.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-                //example of get values from fields
-                System.out.println(nom.getText());
+                String date_rec = end_date.getValue().format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
+                String date_rec2 = start_date.getValue().format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
+                Machine machine = new Machine(reference.getText(), nom.getText(),Integer.parseInt(modele.getText()));
+                Panne panne = new Panne(titre.getText(), description.getText(), date_rec2, date_rec);
+                metier.addMachine(machine,panne);
+                loadmachines();
+
+                // do what you have to do
+                stage.close();
 
             /*
             Code here
@@ -194,12 +155,11 @@ public class MachinesController implements Initializable{
 
     //function for loading machines
     private void loadmachines() {
-        machinesList = new ArrayList<>(getMachinesList());
 
         int column = 0;
         int row = 1;
         try {
-            for (Machine machine : machinesList) {
+            for (Machine machine : metier.getAllMachines()) {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("../view/machines/machine.fxml"));
                 Pane pane = loader.load();
@@ -218,4 +178,5 @@ public class MachinesController implements Initializable{
         }
 
     }
-}
+
+    }

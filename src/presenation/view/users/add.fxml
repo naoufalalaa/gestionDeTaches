@@ -38,6 +38,5 @@
          </font>
       </Text>
       <JFXPasswordField fx:id="password" labelFloat="true" layoutX="433.0" layoutY="360.0" prefHeight="26.0" prefWidth="289.0" promptText="Password" AnchorPane.rightAnchor="19.0" />
-      <JFXComboBox fx:id="role" layoutX="39.0" layoutY="285.0" prefHeight="26.0" prefWidth="683.0" promptText="Role" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="20.0" />
    </children>
 </AnchorPane>

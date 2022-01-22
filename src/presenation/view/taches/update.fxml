@@ -20,7 +20,7 @@
       <JFXTextField fx:id="Titre" focusColor="#4150a6" labelFloat="true" layoutX="40.0" layoutY="139.0" prefHeight="26.0" prefWidth="289.0" promptText="Titre" unFocusColor="BLACK" AnchorPane.leftAnchor="40.0" />
       <JFXTextField fx:id="Description" focusColor="#4150a6" labelFloat="true" layoutX="432.0" layoutY="139.0" prefHeight="26.0" prefWidth="289.0" promptText="Description" unFocusColor="BLACK" AnchorPane.rightAnchor="20.0" />
       <JFXTextField fx:id="Materiels" focusColor="#4150a6" labelFloat="true" layoutX="40.0" layoutY="211.0" prefHeight="26.0" prefWidth="681.0" promptText="Materiels" unFocusColor="BLACK" AnchorPane.leftAnchor="40.0" />
-      <JFXButton fx:id="add" alignment="CENTER" layoutX="432.0" layoutY="486.0" prefHeight="54.0" prefWidth="170.0" style="-fx-background-color: linear-gradient(to right top, #007bdf, #0096eb, #00aeec, #00c3e6, #00d7dd);; -fx-border-radius: 20em; -fx-background-radius: 20em;" text="MODIFIER" textFill="WHITE">
+      <JFXButton fx:id="update" alignment="CENTER" layoutX="432.0" layoutY="486.0" prefHeight="54.0" prefWidth="170.0" style="-fx-background-color: linear-gradient(to right top, #007bdf, #0096eb, #00aeec, #00c3e6, #00d7dd);; -fx-border-radius: 20em; -fx-background-radius: 20em;" text="MODIFIER" textFill="WHITE">
          <font>
             <Font name="FontAwesome" size="16.0" />
          </font>

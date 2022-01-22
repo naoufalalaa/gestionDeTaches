@@ -19,6 +19,8 @@ import metier.Machine;
 import metier.Panne;
 import metier.User;
 
+import metier.IMetier;
+import metier.MetierImp;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -36,7 +38,15 @@ public class TachesController implements Initializable {
 
     @FXML
     private TextField search_field;
+    private IMetier metier;
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        metier=new MetierImp();
 
+        loadPannes();
+
+
+    }
     public void add(ActionEvent event) {
         //get the current stage (main window)
         Stage previousStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -114,11 +124,7 @@ public class TachesController implements Initializable {
 
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadPannes();
 
-    }
 
 
     public List<Panne> getPannesList() {
@@ -133,17 +139,16 @@ public class TachesController implements Initializable {
 
 
 
-        Panne panne3 = new Panne();
-        panne3.setTITRE("infection par un virus");
-        pannes.add(panne3);
 
         return pannes;
+
+
     }
 
 
     //function for loading machines
     private void loadPannes() {
-        List<Panne> pannes= new ArrayList<>(getPannesList());
+        List<Panne> pannes= new ArrayList<>(metier.getAllPannes());
 
         int column = 0;
         int row = 1;

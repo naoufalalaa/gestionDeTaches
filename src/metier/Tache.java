@@ -1,5 +1,9 @@
 package metier;
 
+import com.jfoenix.controls.JFXComboBox;
+
+import java.util.List;
+
 public class Tache {
     private int ID_TACHE;
     private String TITRE;
@@ -9,8 +13,9 @@ public class Tache {
     private String END_DATE;
     private String STATUT;
     private Panne PANNE;
+    private Intervenant INTERVENANT;
 
-    public Tache(int ID_TACHE, String TITRE, String DESCRIPTION, String MATERIELS, String START_DATE, String END_DATE, String STATUT, Panne PANNE) {
+    public Tache(int ID_TACHE, String TITRE, String DESCRIPTION, String MATERIELS, String START_DATE, String END_DATE, String STATUT, Panne PANNE, Intervenant INTERVENANT) {
         this.ID_TACHE = ID_TACHE;
         this.TITRE = TITRE;
         this.DESCRIPTION = DESCRIPTION;
@@ -19,8 +24,31 @@ public class Tache {
         this.END_DATE = END_DATE;
         this.STATUT = STATUT;
         this.PANNE = PANNE;
+        this.INTERVENANT = INTERVENANT;
     }
+    public Tache(int ID_TACHE, String TITRE, String DESCRIPTION, String MATERIELS, String START_DATE, String END_DATE, String STATUT, Intervenant INTERVENANT) {
+        this.ID_TACHE = ID_TACHE;
+        this.TITRE = TITRE;
+        this.DESCRIPTION = DESCRIPTION;
+        this.MATERIELS = MATERIELS;
+        this.START_DATE = START_DATE;
+        this.END_DATE = END_DATE;
+        this.STATUT = STATUT;
+        this.INTERVENANT = INTERVENANT;
+    }
+    public Tache(String TITRE, String DESCRIPTION, String MATERIELS, String START_DATE, String END_DATE, String STATUT,Panne PANNE, Intervenant INTERVENANT) {
+        this.TITRE = TITRE;
+        this.DESCRIPTION = DESCRIPTION;
+        this.MATERIELS = MATERIELS;
+        this.START_DATE = START_DATE;
+        this.END_DATE = END_DATE;
+        this.STATUT = STATUT;
+        this.PANNE = PANNE;
+        this.INTERVENANT = INTERVENANT;
+    }
+    public Tache() {
 
+    }
 
     public int getID_TACHE() {
         return ID_TACHE;
@@ -86,4 +114,11 @@ public class Tache {
         this.PANNE = PANNE;
     }
 
+    public Intervenant getINTERVENANT() {
+        return INTERVENANT;
+    }
+
+    public void setINTERVENANT(Intervenant INTERVENANT) {
+        this.INTERVENANT = INTERVENANT;
+    }
 }

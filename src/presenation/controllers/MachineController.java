@@ -3,6 +3,7 @@ package presenation.controllers;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
@@ -12,8 +13,15 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import metier.Machine;
+import metier.IMetier;
+import metier.MetierImp;
+import metier.Panne;
 
-public class MachineController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MachineController implements Initializable
+{
     @FXML
     private Pane box;
 
@@ -27,7 +35,12 @@ public class MachineController {
     private Text modele;
 
     private Machine machine;
+    private IMetier metier;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        metier=new MetierImp();
 
+    }
 
 
     private String[] colors = {"D677B9", "FF6F91", "FA9B7A","FBC869"};
@@ -66,7 +79,11 @@ public class MachineController {
 
             nom_machine.setText(machine.getNOM());
             //we want to get pane by machine and use it here like
-            titre_pane.setText("lorem ipsum ....");
+            System.out.println(machine.getREFERENCE());
+            titre_pane.setText(metier.findPanneByReferenceMachine(machine.getREFERENCE()).getTITRE());
+            description_pane.setText(metier.findPanneByReferenceMachine(machine.getREFERENCE()).getDESCRIPTION());
+            start_date_pane.setText(metier.findPanneByReferenceMachine(machine.getREFERENCE()).getSTART_DATE());
+            end_date_pane.setText(metier.findPanneByReferenceMachine(machine.getREFERENCE()).getEND_DATE());
 
 
 
@@ -88,6 +105,7 @@ public class MachineController {
             e.printStackTrace();
         }
     }
+
 
 
 }

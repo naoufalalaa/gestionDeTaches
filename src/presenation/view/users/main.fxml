@@ -62,7 +62,7 @@
                   <Image url="@../../utils/images/users/headingbackground.png" />
                </image>
             </ImageView>
-            <Text fill="WHITE" layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion des Utilisateurs" wrappingWidth="389.5537109375">
+            <Text fill="WHITE" layoutX="14.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion des intervenants" wrappingWidth="389.5537109375">
                <font>
                   <Font name="FreeMono Bold" size="24.0" />
                </font>

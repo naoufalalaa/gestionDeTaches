@@ -10,6 +10,9 @@ public class Machine {
         this.NOM = NOM;
         this.MODEL = MODEL;
     }
+    public Machine() {
+
+    }
 
     public Machine() {
 

@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
@@ -15,8 +16,14 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import metier.Machine;
 import metier.Panne;
+import metier.IMetier;
+import metier.MetierImp;
 
-public class PaneController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class PaneController implements Initializable {
+    private IMetier metier;
 
     @FXML
     private Pane box;
@@ -35,6 +42,7 @@ public class PaneController {
 
     public void setData(Panne panne) {
         titre.setText(panne.getTITRE());
+        System.out.println(panne.getTITRE());
         box.setStyle(
                 "-fx-background-color: white;"+ "-fx-background-radius: 15;"+
                 "-fx-effect: dropshadow(three-pass-box, rgba(0.1,0.1,0.1,0.1),10,0,0,10);");
@@ -84,5 +92,11 @@ public class PaneController {
         } catch (Exception e) {
             System.out.println("exception on start method in loadUsersPane ");
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        metier=new MetierImp();
+
     }
 }
