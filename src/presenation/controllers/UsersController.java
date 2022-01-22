@@ -110,7 +110,7 @@ public class UsersController implements Initializable{
         //get the selected model
         //example
         // User user= UsersTable.getSelectionModel().getSelectedItem();
-
+        System.out.println("df");
 
         //get the current stage (main window) and hide it
         Stage previousStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
