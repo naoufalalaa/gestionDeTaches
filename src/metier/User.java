@@ -8,6 +8,7 @@ public class User {
     private String EMAIL;
     private String LOGIN;
     private String PASSWORD;
+    private String ROLE;
 
     public User(int ID_USER, String NOM, String PRENOM, String TELEPHONE, String EMAIL, String LOGIN, String PASSWORD) {
         this.ID_USER = ID_USER;
@@ -37,6 +38,13 @@ public class User {
 
     public User() {
 
+    }
+
+    //this controller is used for authentication
+    public User(Integer id_user, String nom, String role) {
+        this.ID_USER = id_user;
+        NOM = nom;
+        ROLE = role;
     }
 
     public int getID_USER() {
@@ -93,5 +101,9 @@ public class User {
 
     public void setPASSWORD(String PASSWORD) {
         this.PASSWORD = PASSWORD;
+    }
+
+    public String getROLE() {
+        return ROLE;
     }
 }
