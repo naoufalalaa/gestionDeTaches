@@ -25,7 +25,7 @@
                   <Font name="FontAwesome" size="21.0" />
                </font>
             </Text>
-            <Text layoutX="126.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zakaria" AnchorPane.leftAnchor="126.0">
+            <Text fx:id="username" layoutX="132.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zakaria" wrappingWidth="363.9999969378114" AnchorPane.leftAnchor="132.0">
                <font>
                   <Font name="FontAwesome" size="21.0" />
                </font>
