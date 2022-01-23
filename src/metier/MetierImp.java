@@ -172,7 +172,6 @@ public class MetierImp implements IMetier{
     public Panne findPanneByReferenceMachine(String ref) {
 
         Panne panne = new Panne();
-
         try{
             PreparedStatement pstm=conn.prepareStatement("select * from panne WHERE REFERENCE=?");
             pstm.setString(1,ref);
