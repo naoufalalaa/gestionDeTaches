@@ -250,8 +250,8 @@ public class UsersController implements Initializable{
         add.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             //example of get values from fields
 
-            Intervenant intervenant = new Intervenant(nom.getText(), prenom.getText(), telephone.getText(), email.getText(), login.getText(), password.getText());
-            System.out.println(intervenant.getNOM()+intervenant.getLOGIN()+intervenant.getPASSWORD());
+            User intervenant = new User(nom.getText(), prenom.getText(), telephone.getText(), email.getText(), login.getText(), password.getText());
+            System.out.println(intervenant.getNOM()+" "+intervenant.getLOGIN()+" "+intervenant.getPASSWORD());
             metier.addIntervenant(intervenant);
             liste.clear();
             liste.addAll(metier.getAllIntervenant());

@@ -46,7 +46,6 @@ public class GanttChartSample extends Application {
         chart.setTitle("Machine Monitoring");
         chart.setLegendVisible(false);
         chart.setBlockHeight( 50);
-        String machine;
 
         XYChart.Series series;
         for (int i = taches.size()-1 ; i >=0 ; i--){

@@ -13,14 +13,14 @@ public class MetierImp implements IMetier{
 
 
     @Override
-    public void addIntervenant(Intervenant p) {
+    public void addIntervenant(User p) {
         try {
-            PreparedStatement pstm=conn.prepareStatement("insert into user(nom,prenom,telephone,email,login,password) values (?,?,?,?,?,?)");
+            PreparedStatement pstm=conn.prepareStatement("insert into user(NOM,PRENOM,TELEPHONE,EMAIL,LOGIN,PASSWORD) values (?,?,?,?,?,?)");
             pstm.setString(1,p.getNOM());
             pstm.setString(2,p.getPRENOM());
-            pstm.setString(4,p.getTELEPHONE());
-            pstm.setString(5,p.getEMAIL());
-            pstm.setString(3,p.getLOGIN());
+            pstm.setString(3,p.getTELEPHONE());
+            pstm.setString(4,p.getEMAIL());
+            pstm.setString(5,p.getLOGIN());
             pstm.setString(6,p.getPASSWORD());
             pstm.executeUpdate();
 
@@ -172,7 +172,7 @@ public class MetierImp implements IMetier{
     public Panne findPanneByReferenceMachine(String ref) {
 
         Panne panne = new Panne();
-        master
+
         try{
             PreparedStatement pstm=conn.prepareStatement("select * from panne WHERE REFERENCE=?");
             pstm.setString(1,ref);

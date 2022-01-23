@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IMetier {
 
-    void addIntervenant(Intervenant p);
+    void addIntervenant(User p);
     void deleteIntervenant(Intervenant p);
     void updateIntervenant(Intervenant p);
     List<Intervenant> getAllIntervenant();
