@@ -31,6 +31,7 @@ public class PaneController implements Initializable {
 
     @FXML
     private Text titre;
+    public  static int static_label;
 
 
 
@@ -82,6 +83,8 @@ public class PaneController implements Initializable {
             loader.setLocation(getClass().getResource("../view/taches/liste.fxml"));
             Pane pane = loader.load();
             ListTachesController controller = loader.getController();
+            static_label=panne.getID_PANNE();
+
             controller.displayTaches(panne.getID_PANNE());
 
 

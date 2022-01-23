@@ -107,6 +107,7 @@ public class MachinesController implements Initializable{
 
 
             add.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                System.out.println("dg");
                 String date_rec = end_date.getValue().format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
                 String date_rec2 = start_date.getValue().format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
                 Machine machine = new Machine(reference.getText(), nom.getText(),Integer.parseInt(modele.getText()));
