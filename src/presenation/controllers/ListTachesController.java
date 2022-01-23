@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.pannable.PannablePane;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -134,7 +135,7 @@ public class ListTachesController extends PaneController implements Initializabl
             Tache tache = new Tache(Titre.getText(),Description.getText(),Materiels.getText(),start_date.getValue(),end_date.getValue(),"pending",metier.findPanneByID(PaneController.static_label), intervenant.getSelectionModel().getSelectedItem());
             metier.addTache(tache);
             liste.clear();
-            liste.addAll(metier.getAllTaches());
+            liste.addAll(metier.getAllTachesPanne(PaneController.static_label));
 
 
             //close the add window and show the previous window
@@ -273,7 +274,7 @@ public class ListTachesController extends PaneController implements Initializabl
             //get all values
             metier.updateTache(old_tache, new Tache(Titre.getText(),Description.getText(),Materiels.getText(),start_date.getValue(),end_date.getValue(),Statut.getValue(), panne.getValue(), intervenant.getValue()));
             liste.clear();
-            liste.addAll(metier.getAllTachesPanne(old_tache.getPANNE().getID_PANNE()));
+            liste.addAll(metier.getAllTachesPanne(PaneController.static_label));
             /*
              * le code pour ajouter une panne
              * */

@@ -86,7 +86,8 @@ public class UsersController implements Initializable{
 
             String mc=search_field.getText();
         System.out.println(mc);
-            if(metier.findIntervenantByMC(mc).size()==0){
+        Intervenant intervanant = UsersTable.getSelectionModel().getSelectedItem();
+            if(intervanant==null){
                 Alert alert=new Alert(Alert.AlertType.WARNING);
                 alert.setContentText("Veuillez sélectionner un élément ");
                 alert.show();
@@ -98,14 +99,9 @@ public class UsersController implements Initializable{
                 Optional<ButtonType> option = alert.showAndWait();
 
                 if (option.get() == ButtonType.OK) {
-                    List<Intervenant> intervenants=metier.findIntervenantByMC(mc);
-                    int indice=intervenants.get(0).getID_USER();
-                    if(indice>=0) {
-                        System.out.println(indice);
-                        liste.clear();
-                        metier.deleteIntervenant(metier.findIntervenantByID(indice));
-                        liste.addAll(metier.getAllIntervenant());
-                    }
+                    metier.deleteIntervenant(intervanant);
+                    liste.clear();
+                    liste.addAll(metier.getAllIntervenant());
                 }
                 else if (option.get() == ButtonType.CANCEL) {
                 }
@@ -160,18 +156,19 @@ public class UsersController implements Initializable{
          * */
         String mc=search_field.getText();
         System.out.println(mc);
+        Intervenant intervenant = UsersTable.getSelectionModel().getSelectedItem();
         if(metier.findIntervenantByMC(mc).size()==0){
             Alert alert=new Alert(Alert.AlertType.WARNING);
             alert.setContentText("Veuillez sélectionner un élément ");
             alert.show();
         }
         else {
-            nom.setText(metier.findIntervenantByMC(mc).get(0).getNOM());
-            prenom.setText(metier.findIntervenantByMC(mc).get(0).getPRENOM());
-            login.setText(metier.findIntervenantByMC(mc).get(0).getLOGIN());
-            telephone.setText(metier.findIntervenantByMC(mc).get(0).getTELEPHONE());
-            email.setText(metier.findIntervenantByMC(mc).get(0).getEMAIL());
-            password.setText(metier.findIntervenantByMC(mc).get(0).getPASSWORD());
+            nom.setText(intervenant.getNOM());
+            prenom.setText(intervenant.getPRENOM());
+            login.setText(intervenant.getLOGIN());
+            telephone.setText(intervenant.getTELEPHONE());
+            email.setText(intervenant.getEMAIL());
+            password.setText(intervenant.getPASSWORD());
         }
 
 
@@ -191,7 +188,7 @@ public class UsersController implements Initializable{
 
            // System.out.println(nom.getText()+prenom.getText()+password.getText());
 
-            Intervenant p=new Intervenant(metier.findIntervenantByMC(mc).get(0).getID_USER(),nom.getText(),prenom.getText(),telephone.getText(),email.getText(),login.getText(),password.getText());
+            Intervenant p=new Intervenant(intervenant.getID_USER(),nom.getText(),prenom.getText(),telephone.getText(),email.getText(),login.getText(),password.getText());
             metier.updateIntervenant(p);
 
 
