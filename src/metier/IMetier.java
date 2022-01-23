@@ -34,6 +34,5 @@ public interface IMetier {
     List<Machine> findMachineParMC(String motCle);
 
 
-
-
+    List<Tache> getAllTachesPanne(String id_panne);
 }

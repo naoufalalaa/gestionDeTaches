@@ -17,13 +17,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import metier.Machine;
-import metier.IMetier;
-import metier.MetierImp;
-import metier.Panne;
+import metier.*;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
@@ -33,6 +31,10 @@ import java.util.ResourceBundle;
 
 public class MachinesController implements Initializable{
     private IMetier metier;
+
+    @FXML
+    private Text username;
+
     @FXML
     private JFXButton addmachinebutton;
 
@@ -53,6 +55,7 @@ public class MachinesController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        username.setText(AuthenticatedUser.getAuthenticateduser().getNOM().toUpperCase());
 
         /*based on the role of authenticated user we can hide the button for adding machine
         String role = "Res";

@@ -414,4 +414,35 @@ public class MetierImp implements IMetier{
         }
         return machines;
     }
+
+    @Override
+    public List<Tache> getAllTachesPanne(String id_panne) {
+
+        System.out.println("getallpanetaches");
+        System.out.println(id_panne);
+
+
+        List<Tache> taches = new ArrayList<>();
+        Connection conn = SignletonConnectionDB.getConnection();
+        try{
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM  tache WHERE ID_PANNE=?");
+            ps.setString(1,id_panne);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                Tache tache = new Tache();
+                tache.setID_TACHE(Integer.parseInt(rs.getString("ID_TACHE")));
+                tache.setTITRE(rs.getString("TITRE"));
+                tache.setDESCRIPTION(rs.getString("DESCRIPTION"));
+                tache.setMATERIELS(rs.getString("MATERIELS"));
+                tache.setSTART_DATE(rs.getString("START_DATE"));
+                tache.setEND_DATE(rs.getString("END_DATE"));
+                tache.setSTATUT(rs.getString("STATUT"));
+                taches.add(tache);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return taches;
+    }
+
 }

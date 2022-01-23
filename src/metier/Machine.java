@@ -14,9 +14,6 @@ public class Machine {
 
     }
 
-    public Machine() {
-
-    }
 
     public String getREFERENCE() {
         return REFERENCE;

@@ -20,6 +20,7 @@ import metier.IMetier;
 import metier.MetierImp;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PaneController implements Initializable {
@@ -80,6 +81,9 @@ public class PaneController implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("../view/taches/liste.fxml"));
             Pane pane = loader.load();
+            ListTachesController controller = loader.getController();
+            controller.displayTaches(panne.getID_PANNE());
+
 
             Scene scene = ((Node) event.getSource()).getScene();
             BorderPane Window = (BorderPane) scene.lookup("#Window");

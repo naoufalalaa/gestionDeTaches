@@ -321,4 +321,24 @@ public class ListTachesController implements Initializable {
     }
 
 
+    public void displayTaches(int id_panne) {
+        System.out.println("heeh " + id_panne);
+
+        IMetier metier = new MetierImp();
+        ObservableList<Tache> tacheObservableList = FXCollections.observableArrayList();
+
+
+        col_title.setCellValueFactory(new PropertyValueFactory<>("TITRE"));
+        col_startDate.setCellValueFactory(new PropertyValueFactory<>("START_DATE"));
+        col_endDate.setCellValueFactory(new PropertyValueFactory<>("END_DATE"));
+        col_status.setCellValueFactory(new PropertyValueFactory<>("STATUT"));
+
+        tacheObservableList.addAll(metier.getAllTachesPanne(String.valueOf(id_panne)));
+        for (Tache tache : tacheObservableList) {
+            System.out.println(tache.getTITRE());
+
+        }
+        TachesTable.setItems(tacheObservableList);
+
+    }
 }

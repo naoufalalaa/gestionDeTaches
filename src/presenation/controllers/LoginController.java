@@ -9,12 +9,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import metier.AuthenticatedUser;
+import metier.SignletonConnectionDB;
+import metier.User;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class LoginController {
     @FXML
-    private JFXTextField email;
+    private JFXTextField username;
 
     @FXML
     private JFXPasswordField password;
@@ -22,17 +30,38 @@ public class LoginController {
     @FXML
     private JFXButton submit;
 
+    @FXML
+    private Text loginstatus;
+
 
     public void submit(ActionEvent event) {
         //login code here
 
 
-        //login successful
-        //close login window
-        Stage loginWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        loginWindow.hide();
+        try {
+            Connection connection = SignletonConnectionDB.getConnection();
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM user WHERE LOGIN=? and PASSWORD=?");
+            ps.setString(1, username.getText());
+            ps.setString(2, password.getText());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                User authenticateduser = new User(Integer.parseInt(rs.getString("ID_USER")), rs.getString("NOM"), rs.getString("ROLE"));
+                AuthenticatedUser.setAuthenticateduser(authenticateduser);
+                Stage loginWindow = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                loginWindow.close();
+                loadMainWindow();
+            } else {
+                username.setText("");
+                password.setText("");
+                loginstatus.setText("Incorrect Credentials");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }
 
-        //open DashBoard Window
+    private void loadMainWindow(){
         try {
             Parent root = FXMLLoader.load(getClass().getResource("../view/base.fxml"));
             Scene scene = new Scene(root);
@@ -43,6 +72,5 @@ public class LoginController {
         } catch (Exception e) {
             System.out.println("exception load main window in login controller ");
         }
-
     }
 }
