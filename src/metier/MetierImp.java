@@ -149,8 +149,6 @@ public class MetierImp implements IMetier{
             e.printStackTrace();
         }
         return panne;
-
-
     }
 
     @Override
@@ -172,13 +170,17 @@ public class MetierImp implements IMetier{
 
     @Override
     public Panne findPanneByReferenceMachine(String ref) {
+
         Panne panne = new Panne();
+        master
         try{
             PreparedStatement pstm=conn.prepareStatement("select * from panne WHERE REFERENCE=?");
             pstm.setString(1,ref);
             ResultSet rs=pstm.executeQuery();
-            while (rs.next()){
-                panne = new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("START_DATE"),rs.getString("END_DATE"));
+
+            if (rs.next()){
+               panne=new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("START_DATE"),rs.getString("END_DATE"));
+
             }
         }catch(Exception e){
             e.printStackTrace();
