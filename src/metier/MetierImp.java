@@ -8,11 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MetierImp implements IMetier{
-    private  Connection conn;
+    private final Connection conn= SignletonConnectionDB.getConnection();
 
-    public MetierImp() {
-        this.conn = SignletonConnectionDB.getConnection();
-    }
 
 
     @Override
