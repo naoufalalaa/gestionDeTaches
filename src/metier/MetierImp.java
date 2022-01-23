@@ -136,40 +136,38 @@ public class MetierImp implements IMetier{
 
     @Override
     public Panne findPanneByID(int id) {
-        List<Panne> pannes=new ArrayList<>();
+        Panne panne= new Panne();
         try{
             PreparedStatement pstm=conn.prepareStatement("select * from  panne WHERE ID_PANNE=?");
             pstm.setInt(1,id);
             ResultSet rs=pstm.executeQuery();
             while(rs.next()){
-                Panne p=new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("START_DATE"),rs.getString("END_DATE"));
-                pannes.add(p);
+                panne =new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("START_DATE"),rs.getString("END_DATE"));
             }
         }catch (Exception e)
         {
             e.printStackTrace();
         }
-        return pannes.get(0);
+        return panne;
 
 
     }
 
     @Override
     public Panne findPanneByTitre(String titre) {
-        List<Panne> pannes=new ArrayList<>();
+        Panne panne=new Panne();
         try{
             PreparedStatement pstm=conn.prepareStatement("select * from  panne WHERE TITRE=?");
             pstm.setString(1,titre);
             ResultSet rs=pstm.executeQuery();
             while(rs.next()){
-                Panne p=new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("START_DATE"),rs.getString("END_DATE"));
-                pannes.add(p);
+                panne=new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("START_DATE"),rs.getString("END_DATE"));
             }
         }catch (Exception e)
         {
             e.printStackTrace();
         }
-        return pannes.get(0);
+        return panne;
     }
 
     @Override
