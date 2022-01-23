@@ -140,7 +140,7 @@ public class MachinesController implements Initializable{
         search_field.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                System.out.println(search_field.getText());
+
             }
         });
 
