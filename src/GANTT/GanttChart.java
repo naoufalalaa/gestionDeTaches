@@ -19,6 +19,7 @@ import javafx.scene.shape.Rectangle;
 public class GanttChart<X,Y> extends XYChart<X,Y> {
 
     public static class ExtraData {
+
         public long length;
         public String styleClass;
 

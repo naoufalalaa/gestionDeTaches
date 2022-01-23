@@ -1,7 +1,10 @@
 package GANTT;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import GANTT.Tache;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
@@ -18,7 +21,14 @@ public class GanttChartSample extends Application {
 
         stage.setTitle("Gantt Chart Sample");
 
-        String[] taches = new String[] { "Tâche 1", "Tâche 2", "Tâche 3", "Tâche 4" };
+        List<Tache> taches = new ArrayList<>();
+        Tache t1 = new Tache(1,"Buy material","status-green");
+        Tache t2 = new Tache(8,"Start repare","status-blue");
+        Tache t3 = new Tache(3,"End repare","status-red");
+        taches.add(t1);
+        taches.add(t2);
+        taches.add(t3);
+        String[] machines = new String[] { t1.getName(), t2.getName(), t3.getName() };
 
         final NumberAxis xAxis = new NumberAxis();
         final CategoryAxis yAxis = new CategoryAxis();
@@ -31,34 +41,20 @@ public class GanttChartSample extends Application {
         yAxis.setLabel("");
         yAxis.setTickLabelFill(Color.CHOCOLATE);
         yAxis.setTickLabelGap(10);
-        yAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(taches)));
+        yAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(machines)));
 
         chart.setTitle("Machine Monitoring");
         chart.setLegendVisible(false);
         chart.setBlockHeight( 50);
         String machine;
 
-        machine = taches[0];
-        XYChart.Series series1 = new XYChart.Series();
-        series1.getData().add(new XYChart.Data(0, machine, new GanttChart.ExtraData( 9, "status-red")));
+        XYChart.Series series;
+        for (int i = taches.size()-1 ; i >=0 ; i--){
+            series = new XYChart.Series();
+            series.getData().add(new XYChart.Data(0, taches.get(i).getName(), new GanttChart.ExtraData( taches.get(i).getDuration(), taches.get(i).getStatus())));
+            chart.getData().add(series);
+        }
 
-        machine = taches[1];
-        XYChart.Series series2 = new XYChart.Series();
-        series2.getData().add(new XYChart.Data(1, machine, new GanttChart.ExtraData( 1, "status-green")));
-        series2.getData().add(new XYChart.Data(5, machine, new GanttChart.ExtraData( 2, "status-red")));
-
-        machine = taches[2];
-        XYChart.Series series3 = new XYChart.Series();
-        series3.getData().add(new XYChart.Data(0, machine, new GanttChart.ExtraData( 2, "status-red")));
-        series3.getData().add(new XYChart.Data(3, machine, new GanttChart.ExtraData( 1, "status-green")));
-
-        machine = taches[3];
-        XYChart.Series series4 = new XYChart.Series();
-        series4.getData().add(new XYChart.Data(0, machine, new GanttChart.ExtraData( 2, "status-blue")));
-        series4.getData().add(new XYChart.Data(3, machine, new GanttChart.ExtraData( 1, "status-green")));
-        series4.getData().add(new XYChart.Data(3, machine, new GanttChart.ExtraData( 1, "status-red")));
-
-        chart.getData().addAll(series1, series2, series3, series4);
 
         chart.getStylesheets().add(getClass().getResource("ganttchart.css").toExternalForm());
 
