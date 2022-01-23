@@ -5,7 +5,7 @@ package metier;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class SignletonConnectionDB {
+public class SignletonConnectionDB_REMOTE {
     private static Connection connection;
     static {
         try {
