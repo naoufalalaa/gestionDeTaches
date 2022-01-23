@@ -122,4 +122,19 @@ public class Tache {
     public void setINTERVENANT(Intervenant INTERVENANT) {
         this.INTERVENANT = INTERVENANT;
     }
+
+    @Override
+    public String toString() {
+        return "Tache{" +
+                "ID_TACHE=" + ID_TACHE +
+                ", TITRE='" + TITRE + '\'' +
+                ", DESCRIPTION='" + DESCRIPTION + '\'' +
+                ", MATERIELS='" + MATERIELS + '\'' +
+                ", START_DATE=" + START_DATE +
+                ", END_DATE=" + END_DATE +
+                ", STATUT='" + STATUT + '\'' +
+                ", PANNE=" + PANNE +
+                ", INTERVENANT=" + INTERVENANT +
+                '}';
+    }
 }

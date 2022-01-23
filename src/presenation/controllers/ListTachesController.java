@@ -26,6 +26,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -64,6 +65,7 @@ public class ListTachesController extends PaneController implements Initializabl
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         metier=new MetierImp();
+        liste.clear();
 
     }
 
@@ -79,7 +81,6 @@ public class ListTachesController extends PaneController implements Initializabl
         loader.setLocation(getClass().getResource("../view/taches/add.fxml"));
         Scene scene = null;
         try {
-            System.out.println();
             scene = new Scene(loader.load());
             stage.setScene(scene);
             stage.initStyle(StageStyle.TRANSPARENT);
@@ -125,14 +126,12 @@ public class ListTachesController extends PaneController implements Initializabl
 
         add.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             //get all values
-            System.out.println(Titre.getText()+" "+ Date.valueOf(start_date.getValue()));
 
             /*
              * le code pour ajouter une panne
              * */
 
             Tache tache = new Tache(Titre.getText(),Description.getText(),Materiels.getText(),start_date.getValue(),end_date.getValue(),"pending",metier.findPanneByID(PaneController.static_label), intervenant.getSelectionModel().getSelectedItem());
-          //  System.out.println(intervenant.getNOM()+intervenant.getLOGIN()+intervenant.getPASSWORD());
             metier.addTache(tache);
             liste.clear();
             liste.addAll(metier.getAllTaches());
@@ -156,8 +155,8 @@ public class ListTachesController extends PaneController implements Initializabl
     public void delete(ActionEvent event) {
 
         String mc=search_field.getText();
-        System.out.println(mc);
-        if(metier.findTacheParMC(mc).size()==0){
+        Tache tache = TachesTable.getSelectionModel().getSelectedItem();
+        if(tache == null){
             Alert alert=new Alert(Alert.AlertType.WARNING);
             alert.setContentText("Veuillez sélectionner un élément ");
             alert.show();
@@ -165,17 +164,16 @@ public class ListTachesController extends PaneController implements Initializabl
         else {
 
             Alert alert=new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setContentText("vous etes sur");
+            alert.setContentText("vous etes sur ?");
             Optional<ButtonType> option = alert.showAndWait();
 
             if (option.get() == ButtonType.OK) {
                 List<Tache> taches=metier.findTacheParMC(mc);
                 int indice=taches.get(0).getID_TACHE();
                 if(indice>=0) {
-                    System.out.println(indice);
                     liste.clear();
-                    metier.deleteTache(metier.findTacheParID(indice));
-                    liste.addAll(metier.getAllTaches());
+                    metier.deleteTache(tache);
+                    liste.addAll(metier.getAllTachesPanne(tache.getPANNE().getID_PANNE()));
                 }
             }
             else if (option.get() == ButtonType.CANCEL) {
@@ -192,14 +190,12 @@ public class ListTachesController extends PaneController implements Initializabl
 
         Tache old_tache = TachesTable.getSelectionModel().getSelectedItem();
 
-
         //load the add window
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("../view/taches/update.fxml"));
         Scene scene = null;
         try {
-            System.out.println("");
             scene = new Scene(loader.load());
             stage.setScene(scene);
             stage.initStyle(StageStyle.TRANSPARENT);
@@ -218,11 +214,17 @@ public class ListTachesController extends PaneController implements Initializabl
         JFXDatePicker end_date = (JFXDatePicker) scene.lookup( "#end_date");
         JFXComboBox<Intervenant> intervenant = (JFXComboBox) scene.lookup("#intervenant");
         JFXComboBox<Panne> panne = (JFXComboBox) scene.lookup("#Panne");
+        JFXComboBox<String> Statut = (JFXComboBox) scene.lookup("#statut");
 
 
         ObservableList<Intervenant> listeIntevenant= FXCollections.observableArrayList();
         listeIntevenant.addAll(metier.getAllIntervenant());
         intervenant.getItems().setAll(metier.getAllIntervenant());
+        List<String> statuts = new ArrayList<>();
+        statuts.add("over");
+        statuts.add("working-on");
+        statuts.add("pending");
+        Statut.getItems().setAll(statuts);
         /*
         * set old values*/
         ObservableList<Panne> listePanne= FXCollections.observableArrayList();
@@ -230,25 +232,22 @@ public class ListTachesController extends PaneController implements Initializabl
         panne.getItems().setAll(metier.getAllPannes());
 
         String mc=search_field.getText();
-        System.out.println(mc);
-        if(metier.findTacheParMC(mc).size()==0){
+        Titre.setText(old_tache.getTITRE());
+        Description.setText(old_tache.getDESCRIPTION());
+        Materiels.setText(old_tache.getMATERIELS());
+        start_date.setValue(old_tache.getSTART_DATE());
+        end_date.setValue(old_tache.getEND_DATE());
+
+        if(old_tache==null){
             Alert alert=new Alert(Alert.AlertType.WARNING);
             alert.setContentText("Veuillez sélectionner un élément ");
             alert.show();
         }
-        else {
-            try {
-                start_date.setValue(metier.findTacheParMC(mc).get(0).getSTART_DATE());
-                end_date.setValue(metier.findTacheParMC(mc).get(0).getEND_DATE());
-            } catch (NullPointerException e) {}
-            Titre.setText(metier.findTacheParMC(mc).get(0).getTITRE());
-            Description.setText(metier.findTacheParMC(mc).get(0).getDESCRIPTION());
-            Materiels.setText(metier.findTacheParMC(mc).get(0).getMATERIELS());
 
-        }
 
 
         //set old intervenant
+
         /*
         code
         * */
@@ -272,15 +271,9 @@ public class ListTachesController extends PaneController implements Initializabl
 
         update.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             //get all values
-
-            Tache tache = new Tache(metier.findTacheParMC(mc).get(0).getID_TACHE(),Titre.getText(),Description.getText(),Materiels.getText(),start_date.getValue(),end_date.getValue(),"pending",panne.getSelectionModel().getSelectedItem(), intervenant.getSelectionModel().getSelectedItem());
-            //  System.out.println(intervenant.getNOM()+intervenant.getLOGIN()+intervenant.getPASSWORD());
-            metier.updateTache(tache);
+            metier.updateTache(old_tache, new Tache(Titre.getText(),Description.getText(),Materiels.getText(),start_date.getValue(),end_date.getValue(),Statut.getValue(), panne.getValue(), intervenant.getValue()));
             liste.clear();
-            liste.addAll(metier.getAllTaches());
-
-
-
+            liste.addAll(metier.getAllTachesPanne(old_tache.getPANNE().getID_PANNE()));
             /*
              * le code pour ajouter une panne
              * */
@@ -302,9 +295,6 @@ public class ListTachesController extends PaneController implements Initializabl
 
 
     public void displayTaches(int id_panne) {
-        System.out.println("heeh " + id_panne);
-
-        IMetier metier = new MetierImp();
 
 
         col_title.setCellValueFactory(new PropertyValueFactory<>("TITRE"));
@@ -312,29 +302,16 @@ public class ListTachesController extends PaneController implements Initializabl
         col_endDate.setCellValueFactory(new PropertyValueFactory<>("END_DATE"));
         col_status.setCellValueFactory(new PropertyValueFactory<>("STATUT"));
 
-        liste.addAll(metier.getAllTachesPanne(String.valueOf(id_panne)));
-
+        liste.addAll(metier.getAllTachesPanne(id_panne));
         TachesTable.setItems(liste);
 
         search_field.textProperty().addListener(new ChangeListener<String>() {
 
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-
-                if(search_field.getText().isEmpty()){
-                    liste.clear();
-                    liste.addAll(metier.findTacheByIDPanne(PaneController.static_label));
-                }
-                else
-                {
-                    liste.setAll(metier.findTacheParMC(search_field.getText()));
-
-                }
-                System.out.println();
-
-
-
-                }
+                liste.clear();
+                liste.setAll(metier.findTacheParMC(search_field.getText()));
+            }
         });
             }
 

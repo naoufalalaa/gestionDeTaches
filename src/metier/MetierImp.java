@@ -88,19 +88,19 @@ public class MetierImp implements IMetier{
 
     @Override
     public Intervenant findIntervenantByID(int id) {
-        Intervenant intervenant=new Intervenant();
         try{
             PreparedStatement pstm=conn.prepareStatement("select * from user WHERE ID_USER=?");
             pstm.setInt(1,id);
             ResultSet rs=pstm.executeQuery();
             while(rs.next()){
-                intervenant=new Intervenant(rs.getInt("ID_USER"),rs.getString("NOM"),rs.getString("PRENOM"),rs.getString("TELEPHONE"),rs.getString("EMAIL"),rs.getString("LOGIN"),rs.getString("PASSWORD"));
+                Intervenant intervenant=new Intervenant(rs.getInt("ID_USER"),rs.getString("NOM"),rs.getString("PRENOM"),rs.getString("TELEPHONE"),rs.getString("EMAIL"),rs.getString("LOGIN"),rs.getString("PASSWORD"));
+                return intervenant;
             }
         }catch (Exception e)
         {
             e.printStackTrace();
         }
-        return intervenant;
+        return null;
 
 
     }
@@ -133,19 +133,19 @@ public class MetierImp implements IMetier{
 
     @Override
     public Panne findPanneByID(int id) {
-        Panne panne= new Panne();
         try{
             PreparedStatement pstm=conn.prepareStatement("select * from  panne WHERE ID_PANNE=?");
             pstm.setInt(1,id);
             ResultSet rs=pstm.executeQuery();
             while(rs.next()){
-                panne =new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate());
+                Panne panne =new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate());
+                return panne;
             }
         }catch (Exception e)
         {
             e.printStackTrace();
         }
-        return panne;
+        return null;
     }
 
     @Override
@@ -176,7 +176,6 @@ public class MetierImp implements IMetier{
 
             if (rs.next()){
                panne=new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate());
-
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -205,18 +204,18 @@ public class MetierImp implements IMetier{
     }
 
     @Override
-    public void updateTache(Tache t) {
+    public void updateTache(Tache oldTache, Tache t) {
         try {
         PreparedStatement pstm=conn.prepareStatement("UPDATE tache SET TITRE=? ,DESCRIPTION=?, MATERIELS=? ,START_DATE=? ,END_DATE=? ,STATUT=?,ID_PANNE=?,ID_USER=? WHERE ID_TACHE=?");
-            pstm.setString(1,t.getTITRE());
-            pstm.setString(2,t.getDESCRIPTION());
-            pstm.setString(3,t.getMATERIELS());
+            pstm.setString(1, t.getTITRE());
+            pstm.setString(2, t.getDESCRIPTION());
+            pstm.setString(3, t.getMATERIELS());
             pstm.setDate(4,Date.valueOf(t.getSTART_DATE()));
             pstm.setDate(5,Date.valueOf(t.getEND_DATE()));
-            pstm.setString(6,t.getSTATUT());
-            pstm.setInt(8,t.getINTERVENANT().getID_USER());
-            pstm.setInt(7,t.getPANNE().getID_PANNE());
-            pstm.setInt(9,t.getID_TACHE());
+            pstm.setString(6, t.getSTATUT());
+            pstm.setInt(8, t.getINTERVENANT().getID_USER());
+            pstm.setInt(7, t.getPANNE().getID_PANNE());
+            pstm.setInt(9, oldTache.getID_TACHE());
             pstm.executeUpdate();
 
         }catch (Exception e){
@@ -241,13 +240,10 @@ public class MetierImp implements IMetier{
             PreparedStatement pstm=conn.prepareStatement("UPDATE tache SET STATUT=? WHERE id_TACHE=?");
             pstm.setString(1,s);
             pstm.setInt(2,idt);
-
             pstm.executeUpdate();
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
     }
 
     @Override
@@ -257,8 +253,20 @@ public class MetierImp implements IMetier{
             PreparedStatement pstm=conn.prepareStatement("select * from  tache");
             ResultSet rs=pstm.executeQuery();
             while(rs.next()){
-                Tache t=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate(),rs.getString("STATUT"),findPanneByID(rs.getInt("ID_PANNE")),findIntervenantByID(rs.getInt("ID_USER")));
-                taches.add(t);
+                PreparedStatement p = conn.prepareStatement("SELECT * FROM panne WHERE ID_PANNE = ?");
+                p.setInt(1,rs.getInt("ID_PANNE"));
+                ResultSet rp = p.executeQuery();
+                while (rp.next()){
+                    Panne panne = new Panne(rp.getInt("ID_PANNE"),rp.getString(2),rp.getString(3),rp.getDate(4).toLocalDate(),rp.getDate(5).toLocalDate());
+                    PreparedStatement inter = conn.prepareStatement("SELECT * FROM user WHERE ID_USER = ?");
+                    inter.setInt(1,rs.getInt("ID_USER"));
+                    ResultSet ri = inter.executeQuery();
+                    while (ri.next()) {
+                        Intervenant intervenant = new Intervenant(ri.getInt(1), ri.getString(2), ri.getString(3), ri.getString(4), ri.getString(5), ri.getString(6), ri.getString(7));
+                        Tache t = new Tache(rs.getInt("ID_TACHE"), rs.getString("TITRE"), rs.getString("DESCRIPTION"), rs.getString("MATERIELS"), rs.getDate("START_DATE").toLocalDate(), rs.getDate("END_DATE").toLocalDate(), rs.getString("STATUT"), panne, intervenant);
+                        taches.add(t);
+                    }
+                }
             }
         }catch (Exception e)
         {
@@ -275,7 +283,9 @@ public class MetierImp implements IMetier{
             pstm.setString(1,"%"+motCle+"%");
             ResultSet rs=pstm.executeQuery();
             while(rs.next()){
-                Tache t=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate(),rs.getString("STATUT"),findPanneByID(rs.getInt("ID_PANNE")),findIntervenantByID(rs.getInt("ID_USER")));
+                Panne panne = findPanneByID(rs.getInt("ID_PANNE"));
+                Intervenant intervenant = findIntervenantByID(rs.getInt("ID_USER"));
+                Tache t=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate(),rs.getString("STATUT"),panne,intervenant);
                 taches.add(t);
             }
         }catch (Exception e)
@@ -293,7 +303,9 @@ public class MetierImp implements IMetier{
             pstm.setInt(1,idt);
             ResultSet rs=pstm.executeQuery();
             while(rs.next()){
-                tache=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate(),rs.getString("STATUT"),findPanneByID(rs.getInt("ID_PANNE")),findIntervenantByID(rs.getInt("ID_USER")));
+                Panne panne = findPanneByID(rs.getInt("ID_PANNE"));
+                Intervenant intervenant = findIntervenantByID(rs.getInt("ID_USER"));
+                tache=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate(),rs.getString("STATUT"),panne,intervenant);
             }
         }catch (Exception e)
         {
@@ -306,11 +318,13 @@ public class MetierImp implements IMetier{
     public List<Tache> findTacheByIDPanne(int idp) {
         List<Tache> taches=new ArrayList<>();
         try{
-            PreparedStatement pstm=conn.prepareStatement("select * from  tache WHERE ID_PANNE=?");
+            PreparedStatement pstm=conn.prepareStatement("select * from tache WHERE ID_PANNE=?");
             pstm.setInt(1,idp);
             ResultSet rs=pstm.executeQuery();
             while(rs.next()){
-                Tache t=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate(),rs.getString("STATUT"),findPanneByID(rs.getInt("ID_PANNE")),findIntervenantByID(rs.getInt("ID_USER")));
+                Panne panne = findPanneByID(rs.getInt("ID_PANNE"));
+                Intervenant intervenant = findIntervenantByID(rs.getInt("ID_USER"));
+                Tache t=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate(),rs.getString("STATUT"),panne,intervenant);
                 taches.add(t);
             }
         }catch (Exception e)
@@ -406,19 +420,18 @@ public class MetierImp implements IMetier{
     }
 
     @Override
-    public List<Tache> getAllTachesPanne(String id_panne) {
+    public List<Tache> getAllTachesPanne(int id_panne) {
         System.out.println("getallpanetaches");
         System.out.println(id_panne);
 
         List<Tache> taches = new ArrayList<>();
-        Connection conn = SignletonConnectionDB.getConnection();
         try{
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM  tache WHERE ID_PANNE=?");
-            ps.setString(1,id_panne);
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM tache WHERE ID_PANNE=?");
+            ps.setInt(1,id_panne);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                 Tache tache = new Tache();
-                tache.setID_TACHE(Integer.parseInt(rs.getString("ID_TACHE")));
+                tache.setID_TACHE(rs.getInt("ID_TACHE"));
                 tache.setTITRE(rs.getString("TITRE"));
                 tache.setDESCRIPTION(rs.getString("DESCRIPTION"));
                 tache.setMATERIELS(rs.getString("MATERIELS"));

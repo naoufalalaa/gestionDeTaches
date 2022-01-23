@@ -17,7 +17,7 @@ public interface IMetier {
     Panne findPanneByReferenceMachine(String ref);
 
     void addTache(Tache t);
-    void updateTache(Tache t);
+    void updateTache(Tache oldTache, Tache t);
     void deleteTache(Tache t);
     void updateStatusTache(int idt,String s);
     List<Tache> getAllTaches();
@@ -34,5 +34,5 @@ public interface IMetier {
     List<Machine> findMachineParMC(String motCle);
 
 
-    List<Tache> getAllTachesPanne(String id_panne);
+    List<Tache> getAllTachesPanne(int id_panne);
 }
