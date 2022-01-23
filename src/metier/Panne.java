@@ -1,21 +1,23 @@
 package metier;
 
+import java.time.LocalDate;
+
 public class Panne {
     private int ID_PANNE;
     private String TITRE;
     private String DESCRIPTION;
-    private String START_DATE;
-    private String END_DATE;
+    private LocalDate START_DATE;
+    private LocalDate END_DATE;
     private Machine machine;
 
-    public Panne(int ID_PANNE, String TITRE, String DESCRIPTION, String START_DATE, String END_DATE) {
+    public Panne(int ID_PANNE, String TITRE, String DESCRIPTION, LocalDate START_DATE, LocalDate END_DATE) {
         this.ID_PANNE = ID_PANNE;
         this.TITRE = TITRE;
         this.DESCRIPTION = DESCRIPTION;
         this.START_DATE = START_DATE;
         this.END_DATE = END_DATE;
     }
-    public Panne(String TITRE, String DESCRIPTION, String START_DATE, String END_DATE) {
+    public Panne(String TITRE, String DESCRIPTION, LocalDate START_DATE, LocalDate END_DATE) {
         this.TITRE = TITRE;
         this.DESCRIPTION = DESCRIPTION;
         this.START_DATE = START_DATE;
@@ -49,20 +51,28 @@ public class Panne {
         this.DESCRIPTION = DESCRIPTION;
     }
 
-    public String getSTART_DATE() {
+    public LocalDate getSTART_DATE() {
         return START_DATE;
     }
 
-    public void setSTART_DATE(String START_DATE) {
+    public void setSTART_DATE(LocalDate START_DATE) {
         this.START_DATE = START_DATE;
     }
 
-    public String getEND_DATE() {
+    public LocalDate getEND_DATE() {
         return END_DATE;
     }
 
-    public void setEND_DATE(String END_DATE) {
+    public void setEND_DATE(LocalDate END_DATE) {
         this.END_DATE = END_DATE;
+    }
+
+    public Machine getMachine() {
+        return machine;
+    }
+
+    public void setMachine(Machine machine) {
+        this.machine = machine;
     }
 
     @Override

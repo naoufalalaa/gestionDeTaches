@@ -43,7 +43,7 @@ public class MachineController implements Initializable
     }
 
 
-    private String[] colors = {"D677B9", "FF6F91", "FA9B7A","FBC869"};
+    private String[] colors = { "D677B9", "FF6F91", "FA9B7A","FBC869"};
 
     public void setData(Machine machine) {
             nom.setText(machine.getNOM());
@@ -82,8 +82,8 @@ public class MachineController implements Initializable
             System.out.println(machine.getREFERENCE());
             titre_pane.setText(metier.findPanneByReferenceMachine(machine.getREFERENCE()).getTITRE());
             description_pane.setText(metier.findPanneByReferenceMachine(machine.getREFERENCE()).getDESCRIPTION());
-            start_date_pane.setText(metier.findPanneByReferenceMachine(machine.getREFERENCE()).getSTART_DATE());
-            end_date_pane.setText(metier.findPanneByReferenceMachine(machine.getREFERENCE()).getEND_DATE());
+            start_date_pane.setText(metier.findPanneByReferenceMachine(machine.getREFERENCE()).getSTART_DATE().toString());
+            end_date_pane.setText(metier.findPanneByReferenceMachine(machine.getREFERENCE()).getEND_DATE().toString());
 
 
 

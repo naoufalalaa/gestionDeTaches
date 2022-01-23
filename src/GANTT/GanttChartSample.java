@@ -21,9 +21,9 @@ public class GanttChartSample extends Application {
         stage.setTitle("Gantt Chart");
 
         List<Tache> taches = new ArrayList<>();
-        Tache t1 = new Tache(1,"Buy material","status-green");
-        Tache t2 = new Tache(8.3,"Start repare","status-blue",t1);
-        Tache t3 = new Tache(3,"End repare","status-red",t2);
+        Tache t1 = new Tache(1,"Buy material","over");
+        Tache t2 = new Tache(8.3,"Start repare","working-on",t1);
+        Tache t3 = new Tache(3,"End repare","pending",t2);
         taches.add(t1);
         taches.add(t2);
         taches.add(t3);

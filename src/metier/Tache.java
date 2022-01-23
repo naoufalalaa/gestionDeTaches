@@ -2,6 +2,7 @@ package metier;
 
 import com.jfoenix.controls.JFXComboBox;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Tache {
@@ -9,13 +10,13 @@ public class Tache {
     private String TITRE;
     private String DESCRIPTION;
     private String MATERIELS;
-    private String START_DATE;
-    private String END_DATE;
+    private LocalDate START_DATE;
+    private LocalDate END_DATE;
     private String STATUT;
     private Panne PANNE;
     private Intervenant INTERVENANT;
 
-    public Tache(int ID_TACHE, String TITRE, String DESCRIPTION, String MATERIELS, String START_DATE, String END_DATE, String STATUT, Panne PANNE, Intervenant INTERVENANT) {
+    public Tache(int ID_TACHE, String TITRE, String DESCRIPTION, String MATERIELS, LocalDate START_DATE, LocalDate END_DATE, String STATUT, Panne PANNE, Intervenant INTERVENANT) {
         this.ID_TACHE = ID_TACHE;
         this.TITRE = TITRE;
         this.DESCRIPTION = DESCRIPTION;
@@ -26,7 +27,7 @@ public class Tache {
         this.PANNE = PANNE;
         this.INTERVENANT = INTERVENANT;
     }
-    public Tache(int ID_TACHE, String TITRE, String DESCRIPTION, String MATERIELS, String START_DATE, String END_DATE, String STATUT, Intervenant INTERVENANT) {
+    public Tache(int ID_TACHE, String TITRE, String DESCRIPTION, String MATERIELS, LocalDate START_DATE, LocalDate END_DATE, String STATUT, Intervenant INTERVENANT) {
         this.ID_TACHE = ID_TACHE;
         this.TITRE = TITRE;
         this.DESCRIPTION = DESCRIPTION;
@@ -36,7 +37,7 @@ public class Tache {
         this.STATUT = STATUT;
         this.INTERVENANT = INTERVENANT;
     }
-    public Tache(String TITRE, String DESCRIPTION, String MATERIELS, String START_DATE, String END_DATE, String STATUT,Panne PANNE, Intervenant INTERVENANT) {
+    public Tache(String TITRE, String DESCRIPTION, String MATERIELS, LocalDate START_DATE, LocalDate END_DATE, String STATUT,Panne PANNE, Intervenant INTERVENANT) {
         this.TITRE = TITRE;
         this.DESCRIPTION = DESCRIPTION;
         this.MATERIELS = MATERIELS;
@@ -82,19 +83,19 @@ public class Tache {
         this.MATERIELS = MATERIELS;
     }
 
-    public String getSTART_DATE() {
+    public LocalDate getSTART_DATE() {
         return START_DATE;
     }
 
-    public void setSTART_DATE(String START_DATE) {
+    public void setSTART_DATE(LocalDate START_DATE) {
         this.START_DATE = START_DATE;
     }
 
-    public String getEND_DATE() {
+    public LocalDate getEND_DATE() {
         return END_DATE;
     }
 
-    public void setEND_DATE(String END_DATE) {
+    public void setEND_DATE(LocalDate END_DATE) {
         this.END_DATE = END_DATE;
     }
 

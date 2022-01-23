@@ -1,9 +1,6 @@
 package metier;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,7 +79,7 @@ public class MetierImp implements IMetier{
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM panne");
             while(rs.next()){
-                pannes.add(new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("START_DATE"),rs.getString("END_DATE")));
+                pannes.add(new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate()));
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -142,7 +139,7 @@ public class MetierImp implements IMetier{
             pstm.setInt(1,id);
             ResultSet rs=pstm.executeQuery();
             while(rs.next()){
-                panne =new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("START_DATE"),rs.getString("END_DATE"));
+                panne =new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate());
             }
         }catch (Exception e)
         {
@@ -159,7 +156,7 @@ public class MetierImp implements IMetier{
             pstm.setString(1,titre);
             ResultSet rs=pstm.executeQuery();
             while(rs.next()){
-                panne=new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("START_DATE"),rs.getString("END_DATE"));
+                panne=new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate());
             }
         }catch (Exception e)
         {
@@ -178,7 +175,7 @@ public class MetierImp implements IMetier{
             ResultSet rs=pstm.executeQuery();
 
             if (rs.next()){
-               panne=new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("START_DATE"),rs.getString("END_DATE"));
+               panne=new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate());
 
             }
         }catch(Exception e){
@@ -195,8 +192,8 @@ public class MetierImp implements IMetier{
             pstm.setString(1,t.getTITRE());
             pstm.setString(2,t.getDESCRIPTION());
             pstm.setString(3,t.getMATERIELS());
-            pstm.setString(4,t.getSTART_DATE());
-            pstm.setString(5,t.getEND_DATE());
+            pstm.setDate(4,Date.valueOf(t.getSTART_DATE()));
+            pstm.setDate(5,Date.valueOf(t.getEND_DATE()));
             pstm.setString(6,t.getSTATUT());
             pstm.setInt(8,t.getINTERVENANT().getID_USER());
             pstm.setInt(7,t.getPANNE().getID_PANNE());
@@ -214,8 +211,8 @@ public class MetierImp implements IMetier{
             pstm.setString(1,t.getTITRE());
             pstm.setString(2,t.getDESCRIPTION());
             pstm.setString(3,t.getMATERIELS());
-            pstm.setString(4,t.getSTART_DATE());
-            pstm.setString(5,t.getEND_DATE());
+            pstm.setDate(4,Date.valueOf(t.getSTART_DATE()));
+            pstm.setDate(5,Date.valueOf(t.getEND_DATE()));
             pstm.setString(6,t.getSTATUT());
             pstm.setInt(8,t.getINTERVENANT().getID_USER());
             pstm.setInt(7,t.getPANNE().getID_PANNE());
@@ -260,7 +257,7 @@ public class MetierImp implements IMetier{
             PreparedStatement pstm=conn.prepareStatement("select * from  tache");
             ResultSet rs=pstm.executeQuery();
             while(rs.next()){
-                Tache t=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getString("START_DATE"),rs.getString("END_DATE"),rs.getString("STATUT"),findPanneByID(rs.getInt("ID_PANNE")),findIntervenantByID(rs.getInt("ID_USER")));
+                Tache t=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate(),rs.getString("STATUT"),findPanneByID(rs.getInt("ID_PANNE")),findIntervenantByID(rs.getInt("ID_USER")));
                 taches.add(t);
             }
         }catch (Exception e)
@@ -278,7 +275,7 @@ public class MetierImp implements IMetier{
             pstm.setString(1,"%"+motCle+"%");
             ResultSet rs=pstm.executeQuery();
             while(rs.next()){
-                Tache t=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getString("START_DATE"),rs.getString("END_DATE"),rs.getString("STATUT"),findPanneByID(rs.getInt("ID_PANNE")),findIntervenantByID(rs.getInt("ID_USER")));
+                Tache t=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate(),rs.getString("STATUT"),findPanneByID(rs.getInt("ID_PANNE")),findIntervenantByID(rs.getInt("ID_USER")));
                 taches.add(t);
             }
         }catch (Exception e)
@@ -296,7 +293,7 @@ public class MetierImp implements IMetier{
             pstm.setInt(1,idt);
             ResultSet rs=pstm.executeQuery();
             while(rs.next()){
-                tache=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getString("START_DATE"),rs.getString("END_DATE"),rs.getString("STATUT"),findPanneByID(rs.getInt("ID_PANNE")),findIntervenantByID(rs.getInt("ID_USER")));
+                tache=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate(),rs.getString("STATUT"),findPanneByID(rs.getInt("ID_PANNE")),findIntervenantByID(rs.getInt("ID_USER")));
             }
         }catch (Exception e)
         {
@@ -313,7 +310,7 @@ public class MetierImp implements IMetier{
             pstm.setInt(1,idp);
             ResultSet rs=pstm.executeQuery();
             while(rs.next()){
-                Tache t=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getString("START_DATE"),rs.getString("END_DATE"),rs.getString("STATUT"),findPanneByID(rs.getInt("ID_PANNE")),findIntervenantByID(rs.getInt("ID_USER")));
+                Tache t=new Tache(rs.getInt("ID_TACHE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getString("MATERIELS"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate(),rs.getString("STATUT"),findPanneByID(rs.getInt("ID_PANNE")),findIntervenantByID(rs.getInt("ID_USER")));
                 taches.add(t);
             }
         }catch (Exception e)
@@ -336,8 +333,8 @@ public class MetierImp implements IMetier{
             PreparedStatement pstm2=conn.prepareStatement("insert into panne(TITRE,DESCRIPTION,START_DATE,END_DATE,REFERENCE) values (?,?,?,?,?)");
             pstm2.setString(1,p.getTITRE());
             pstm2.setString(2,p.getDESCRIPTION());
-            pstm2.setString(3,p.getSTART_DATE());
-            pstm2.setString(4,p.getEND_DATE());
+            pstm2.setDate(3, Date.valueOf(p.getSTART_DATE()));
+            pstm2.setDate(4,Date.valueOf(p.getEND_DATE()));
             pstm2.setString(5,m.getREFERENCE());
 
             pstm2.executeUpdate();
@@ -425,8 +422,8 @@ public class MetierImp implements IMetier{
                 tache.setTITRE(rs.getString("TITRE"));
                 tache.setDESCRIPTION(rs.getString("DESCRIPTION"));
                 tache.setMATERIELS(rs.getString("MATERIELS"));
-                tache.setSTART_DATE(rs.getString("START_DATE"));
-                tache.setEND_DATE(rs.getString("END_DATE"));
+                tache.setSTART_DATE(rs.getDate("START_DATE").toLocalDate());
+                tache.setEND_DATE(rs.getDate("END_DATE").toLocalDate());
                 tache.setSTATUT(rs.getString("STATUT"));
                 taches.add(tache);
             }

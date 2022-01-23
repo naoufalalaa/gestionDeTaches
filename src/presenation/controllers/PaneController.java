@@ -22,6 +22,7 @@ import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -76,36 +77,27 @@ public class PaneController implements Initializable {
             int nbTaches = taches.size();
             List<GANTT.Tache> taches1 = new ArrayList<>();
 
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("mm-DD-yyyy");
             String[] machines = new String[taches.size()];
-            int i=0;
-            for (Tache t : taches){
-                try {
-                    LocalDate dateStart = LocalDate.parse(t.getSTART_DATE(), dtf);
-                    LocalDate dateEnd = LocalDate.parse(t.getEND_DATE(),dtf);
-                    System.out.println(dateStart);
-                    long duration = Duration.between(dateStart,dateEnd).toHours();
-                    if(i==0) {
-                        taches1.add(new GANTT.Tache(duration, t.getTITRE(), t.getSTATUT(),null));
-                    }else {
-                        taches1.add(new GANTT.Tache(duration, t.getTITRE(), t.getSTATUT(), taches1.get(i-1)));
-                    }
-                    i++;
-                }catch(Exception e){
-                    e.printStackTrace();
+            for (int k = 0;k < taches.size() ; k++){
+                machines[k] = taches.get(k).getTITRE();
+            }
+            for (int i=0;i<nbTaches;i++){
+                long duration = ChronoUnit.DAYS.between(taches.get(i).getSTART_DATE(),taches.get(i).getEND_DATE());
+                if(i==0) {
+                    taches1.add(new GANTT.Tache(duration, taches.get(i).getTITRE(), taches.get(i).getSTATUT()));
+                }else {
+                    taches1.add(new GANTT.Tache(duration, taches.get(i).getTITRE(), taches.get(i).getSTATUT(), taches1.get(i-1)));
                 }
             }
 
             final NumberAxis xAxis = new NumberAxis();
             final CategoryAxis yAxis = new CategoryAxis();
             final GanttChart<Number,String> chart = new GanttChart<Number,String>(xAxis,yAxis);
-            xAxis.setLabel("Duration");
+            xAxis.setLabel("Durée (jours)");
             xAxis.setTickLabelFill(Color.CHOCOLATE);
-            LocalDate dateStart = LocalDate.parse(panne.getSTART_DATE());
-            LocalDate dateEnd = LocalDate.parse(panne.getEND_DATE());
 
             // date de fin de la panne
-            xAxis.setMinorTickCount((int) Duration.between(dateStart,dateEnd).toHours());
+            xAxis.setMinorTickCount((int) ChronoUnit.DAYS.between(panne.getSTART_DATE(),panne.getEND_DATE()));
 
 
             yAxis.setLabel("");
@@ -116,16 +108,16 @@ public class PaneController implements Initializable {
             chart.setTitle(panne.getTITRE());
             chart.setLegendVisible(false);
             chart.setBlockHeight( 50);
-
+            double offset;
             XYChart.Series series;
-            for (int k = taches.size()-1 ; k >=0 ; k--){
+            for (int i = taches.size()-1 ; i >=0 ; i--){
                 series = new XYChart.Series();
-                double offset = 0;
+                offset = 0;
 
                 for(int j = 0; j <= i ; j++){
                     offset+= taches1.get(j).getPrevious().getDuration();
                 }
-                series.getData().add(new XYChart.Data(offset, taches1.get(k).getName(), new GanttChart.ExtraData( taches1.get(k).getDuration(), taches1.get(k).getStatus())));
+                series.getData().add(new XYChart.Data(offset, taches1.get(i).getName(), new GanttChart.ExtraData( taches1.get(i).getDuration(), taches1.get(i).getStatus())));
                 chart.getData().add(series);
             }
 

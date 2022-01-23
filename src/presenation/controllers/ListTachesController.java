@@ -130,9 +130,8 @@ public class ListTachesController extends PaneController implements Initializabl
             /*
              * le code pour ajouter une panne
              * */
-            String date_rec = end_date.getValue().format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
-            String date_rec2 = start_date.getValue().format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
-            Tache tache = new Tache(Titre.getText(),Description.getText(),Materiels.getText(),date_rec2,date_rec,"pending",metier.findPanneByID(PaneController.static_label), intervenant.getSelectionModel().getSelectedItem());
+
+            Tache tache = new Tache(Titre.getText(),Description.getText(),Materiels.getText(),start_date.getValue(),end_date.getValue(),"pending",metier.findPanneByID(PaneController.static_label), intervenant.getSelectionModel().getSelectedItem());
           //  System.out.println(intervenant.getNOM()+intervenant.getLOGIN()+intervenant.getPASSWORD());
             metier.addTache(tache);
             liste.clear();
@@ -239,8 +238,8 @@ public class ListTachesController extends PaneController implements Initializabl
         }
         else {
             try {
-                start_date.setValue(LOCAL_DATE(metier.findTacheParMC(mc).get(0).getSTART_DATE()));
-                end_date.setValue(LOCAL_DATE(metier.findTacheParMC(mc).get(0).getEND_DATE()));
+                start_date.setValue(metier.findTacheParMC(mc).get(0).getSTART_DATE());
+                end_date.setValue(metier.findTacheParMC(mc).get(0).getEND_DATE());
             } catch (NullPointerException e) {}
             Titre.setText(metier.findTacheParMC(mc).get(0).getTITRE());
             Description.setText(metier.findTacheParMC(mc).get(0).getDESCRIPTION());
@@ -273,10 +272,8 @@ public class ListTachesController extends PaneController implements Initializabl
 
         update.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             //get all values
-            System.out.println(Description.getText()+" "+ Date.valueOf(start_date.getValue()));
-            String date_rec = end_date.getValue().format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
-            String date_rec2 = start_date.getValue().format(DateTimeFormatter.ofPattern("MMM-dd-yyyy"));
-            Tache tache = new Tache(metier.findTacheParMC(mc).get(0).getID_TACHE(),Titre.getText(),Description.getText(),Materiels.getText(),date_rec2,date_rec,"pending",panne.getSelectionModel().getSelectedItem(), intervenant.getSelectionModel().getSelectedItem());
+
+            Tache tache = new Tache(metier.findTacheParMC(mc).get(0).getID_TACHE(),Titre.getText(),Description.getText(),Materiels.getText(),start_date.getValue(),end_date.getValue(),"pending",panne.getSelectionModel().getSelectedItem(), intervenant.getSelectionModel().getSelectedItem());
             //  System.out.println(intervenant.getNOM()+intervenant.getLOGIN()+intervenant.getPASSWORD());
             metier.updateTache(tache);
             liste.clear();
