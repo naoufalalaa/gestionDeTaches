@@ -1,9 +1,9 @@
-.status-red {
+.pending {
     -fx-background-color:rgba(128,0,0,0.7);
 }
-.status-green {
+.over {
     -fx-background-color:rgba(0,128,0,0.7);
 }
-.status-blue {
+.working-on {
     -fx-background-color:rgba(0,0,128,0.7);
 }

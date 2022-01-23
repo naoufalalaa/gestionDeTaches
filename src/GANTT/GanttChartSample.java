@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import GANTT.Tache;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
@@ -19,11 +18,11 @@ public class GanttChartSample extends Application {
 
     @Override public void start(Stage stage) {
 
-        stage.setTitle("Gantt Chart Sample");
+        stage.setTitle("Gantt Chart");
 
         List<Tache> taches = new ArrayList<>();
         Tache t1 = new Tache(1,"Buy material","status-green");
-        Tache t2 = new Tache(8,"Start repare","status-blue",t1);
+        Tache t2 = new Tache(8.3,"Start repare","status-blue",t1);
         Tache t3 = new Tache(3,"End repare","status-red",t2);
         taches.add(t1);
         taches.add(t2);
@@ -38,6 +37,7 @@ public class GanttChartSample extends Application {
         final GanttChart<Number,String> chart = new GanttChart<Number,String>(xAxis,yAxis);
         xAxis.setLabel("");
         xAxis.setTickLabelFill(Color.CHOCOLATE);
+        // date de fin de la panne
         xAxis.setMinorTickCount(13);
 
         yAxis.setLabel("");
@@ -52,7 +52,7 @@ public class GanttChartSample extends Application {
         XYChart.Series series;
         for (int i = taches.size()-1 ; i >=0 ; i--){
             series = new XYChart.Series();
-            int offset = 0;
+            double offset = 0;
 
             for(int j = 0; j <= i ; j++){
                 offset+= taches.get(j).getPrevious().getDuration();

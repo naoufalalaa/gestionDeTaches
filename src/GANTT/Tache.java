@@ -2,12 +2,18 @@ package GANTT;
 
 public class Tache {
 
-    private int duration;
+    private double duration;
     private String name;
     private String status;
     private Tache previous;
 
-    public Tache(int duration, String name, String status) {
+    public Tache(double duration, String name, String status, Tache previous) {
+        this.duration = duration;
+        this.name = name;
+        this.status = status;
+        this.previous = previous;
+    }
+    public Tache(double duration, String name, String status) {
         this.duration = duration;
         this.name = name;
         this.status = status;
@@ -15,12 +21,6 @@ public class Tache {
     }
 
 
-    public Tache(int duration, String name, String status, Tache previous) {
-        this.duration = duration;
-        this.name = name;
-        this.status = status;
-        this.previous = previous;
-    }
 
     public Tache getPrevious() {
         return previous;
@@ -38,11 +38,11 @@ public class Tache {
         this.status = status;
     }
 
-    public int getDuration() {
+    public double getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(double duration) {
         this.duration = duration;
     }
 
