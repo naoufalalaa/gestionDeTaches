@@ -63,8 +63,15 @@ public class ListTachesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        col_title.setCellValueFactory(new PropertyValueFactory<>("TITRE"));
+        col_startDate.setCellValueFactory(new PropertyValueFactory<>("START_DATE"));
+        col_endDate.setCellValueFactory(new PropertyValueFactory<>("END_DATE"));
+        col_status.setCellValueFactory(new PropertyValueFactory<>("STATUT"));
         metier=new MetierImp();
+        System.out.println("helooo"+panne_title.getText());
+       // liste.addAll(metier.findTacheByIDPanne(metier.findPanneByTitre(panne_title.getText()).getID_PANNE()));
         liste.addAll(metier.getAllTaches());
+
         TachesTable.setItems(liste);
         search_field.textProperty().addListener(new ChangeListener<String>() {
             @Override

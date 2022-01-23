@@ -66,9 +66,18 @@ public class UsersController implements Initializable{
         UsersTable.setItems(liste);
 
         search_field.textProperty().addListener(new ChangeListener<String>() {
+
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                liste.setAll(metier.findIntervenantByMC(search_field.getText())) ;
+                if(search_field.getText().isEmpty()){
+                    liste.clear();
+                    liste.addAll(metier.getAllIntervenant());
+                }
+                else
+                {           liste.setAll(metier.findIntervenantByMC(search_field.getText())) ;
+
+
+                }
             }
         });
     }

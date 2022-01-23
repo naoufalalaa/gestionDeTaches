@@ -36,7 +36,6 @@
          </font>
       </Text>
       <JFXComboBox fx:id="intervenant" layoutX="39.0" layoutY="369.0" prefHeight="26.0" prefWidth="289.0" promptText="intervenant" />
-      <JFXComboBox fx:id="Panne" layoutX="438.0" layoutY="369.0" prefHeight="26.0" prefWidth="289.0" promptText="Panne" />
       <JFXDatePicker fx:id="start_date" layoutX="39.0" layoutY="295.0" prefHeight="26.0" prefWidth="289.0" promptText="start_date" />
       <JFXDatePicker fx:id="end_date" layoutX="438.0" layoutY="294.0" prefHeight="26.0" prefWidth="289.0" promptText="end_date" />
    </children>
