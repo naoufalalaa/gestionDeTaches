@@ -16,11 +16,12 @@ public class MetierImp implements IMetier{
     public void addIntervenant(Intervenant p) {
         try {
             PreparedStatement pstm=conn.prepareStatement("insert into user(nom,prenom,telephone,email,login,password) values (?,?,?,?,?,?)");
+            
             pstm.setString(1,p.getNOM());
             pstm.setString(2,p.getPRENOM());
-            pstm.setString(4,p.getTELEPHONE());
-            pstm.setString(5,p.getEMAIL());
-            pstm.setString(3,p.getLOGIN());
+            pstm.setString(3, p.getTELEPHONE());
+            pstm.setString(4,p.getEMAIL());
+            pstm.setString(5,p.getLOGIN());
             pstm.setString(6,p.getPASSWORD());
             pstm.executeUpdate();
 
