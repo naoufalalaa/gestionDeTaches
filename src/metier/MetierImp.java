@@ -353,7 +353,6 @@ public class MetierImp implements IMetier{
             PreparedStatement pstm=conn.prepareStatement("DELETE FROM machine where REFERENCE = ? ");
             pstm.setString(1,m.getREFERENCE());
 
-
             pstm.executeUpdate();
 
         }catch (Exception e){
@@ -410,10 +409,8 @@ public class MetierImp implements IMetier{
 
     @Override
     public List<Tache> getAllTachesPanne(String id_panne) {
-
         System.out.println("getallpanetaches");
         System.out.println(id_panne);
-
 
         List<Tache> taches = new ArrayList<>();
         Connection conn = SignletonConnectionDB.getConnection();
