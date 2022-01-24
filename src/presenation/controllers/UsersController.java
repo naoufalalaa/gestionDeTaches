@@ -115,14 +115,16 @@ public class UsersController implements Initializable{
         //get the selected model
         //example
         // User user= UsersTable.getSelectionModel().getSelectedItem();
-        System.out.println("df");
-
+        Intervenant intervenant = UsersTable.getSelectionModel().getSelectedItem();
+        if(intervenant ==null){
+            Alert alert=new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Veuillez sélectionner un élément ");
+            alert.show();
+        }
+        else {
         //get the current stage (main window) and hide it
         Stage previousStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         previousStage.hide();
-        System.out.println("hgjhhjhh");
-
-        System.out.println("gf");
         //load the update window
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
@@ -156,20 +158,13 @@ public class UsersController implements Initializable{
          * */
         String mc=search_field.getText();
         System.out.println(mc);
-        Intervenant intervenant = UsersTable.getSelectionModel().getSelectedItem();
-        if(metier.findIntervenantByMC(mc).size()==0){
-            Alert alert=new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("Veuillez sélectionner un élément ");
-            alert.show();
-        }
-        else {
+
             nom.setText(intervenant.getNOM());
             prenom.setText(intervenant.getPRENOM());
             login.setText(intervenant.getLOGIN());
             telephone.setText(intervenant.getTELEPHONE());
             email.setText(intervenant.getEMAIL());
             password.setText(intervenant.getPASSWORD());
-        }
 
 
 
@@ -211,6 +206,7 @@ public class UsersController implements Initializable{
             previousStage.show();
         });
 
+        }
 
     }
 

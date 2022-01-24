@@ -101,13 +101,9 @@ public class TachesController implements Initializable {
 
         add.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             //get all values
-            System.out.println(Titre.getText()+" "+Date.valueOf(start_date.getValue()));
-
             /*
             * le code pour ajouter une panne
             * */
-
-
             //close the add window and show the previous window
             stage.close();
             previousStage.show();

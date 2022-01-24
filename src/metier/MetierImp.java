@@ -79,7 +79,8 @@ public class MetierImp implements IMetier{
             Statement stm = conn.createStatement();
             ResultSet rs = stm.executeQuery("SELECT * FROM panne");
             while(rs.next()){
-                pannes.add(new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate()));
+                Machine machine = findMachineParMC(rs.getString("REFERENCE")).get(0);
+                pannes.add(new Panne(rs.getInt("ID_PANNE"),rs.getString("TITRE"),rs.getString("DESCRIPTION"),rs.getDate("START_DATE").toLocalDate(),rs.getDate("END_DATE").toLocalDate(),machine));
             }
         }catch(Exception e){
             e.printStackTrace();

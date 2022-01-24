@@ -42,14 +42,15 @@ public class PaneController implements Initializable {
 
 
     private Panne panne;
-
+    @FXML
+    private Text machine;
 
     private String[] colors = {"D677B9", "FF6F91", "FA9B7A","FBC869"};
 
 
     public void setData(Panne panne) {
         titre.setText(panne.getTITRE());
-        System.out.println(panne.getTITRE());
+        machine.setText(panne.getMachine().getNOM() + " " + panne.getMachine().getREFERENCE());
         box.setStyle(
                 "-fx-background-color: white;"+ "-fx-background-radius: 15;"+
                 "-fx-effect: dropshadow(three-pass-box, rgba(0.1,0.1,0.1,0.1),10,0,0,10);");
@@ -139,6 +140,7 @@ public class PaneController implements Initializable {
 
     public void displayTaches(ActionEvent event) {
         try {
+            Machine machine;
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("../view/taches/liste.fxml"));
             Pane pane = loader.load();
@@ -146,14 +148,13 @@ public class PaneController implements Initializable {
             static_label=panne.getID_PANNE();
 
             controller.displayTaches(panne.getID_PANNE());
-
-
+            machine= panne.getMachine();
             Scene scene = ((Node) event.getSource()).getScene();
             BorderPane Window = (BorderPane) scene.lookup("#Window");
 
 
             Text title = (Text) pane.lookup("#panne_title");
-            title.setText(panne.getTITRE());
+            title.setText(machine.getNOM() + " : " + panne.getTITRE());
 
             Window.setCenter(pane);
         } catch (Exception e) {

@@ -16,6 +16,11 @@
             <Font name="FreeMono Bold" size="24.0" />
          </font>
       </Text>
+      <Text fx:id="machine" layoutX="11.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" wrappingWidth="266.22899627685547">
+         <font>
+            <Font name="FreeMono" size="15.0" />
+         </font>
+      </Text>
       <HBox layoutX="20.0" layoutY="80.0" alignment="CENTER">
          <JFXButton layoutY="80.0" onMouseClicked="#click" prefHeight="42.0" prefWidth="133.0" style="-fx-background-color: #eef;-fx-start-margin: 10px;-fx-end-margin: 10px; -fx-background-radius: 2em;" text="GANTT" textFill="#254891">
             <cursor>

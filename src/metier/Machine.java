@@ -38,4 +38,10 @@ public class Machine {
     public void setMODEL(int MODEL) {
         this.MODEL = MODEL;
     }
+
+    @Override
+    public String toString() {
+        return "NOM = '" + NOM + '\'' +
+                ", MODEL=" + MODEL;
+    }
 }

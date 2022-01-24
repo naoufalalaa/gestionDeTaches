@@ -43,7 +43,7 @@ public class MachineController implements Initializable
     }
 
 
-    private String[] colors = { "D677B9", "FF6F91", "FA9B7A","FBC869"};
+    private String[] colors = new String[]{"EEF", "9999FF"};
 
     public void setData(Machine machine) {
             nom.setText(machine.getNOM());

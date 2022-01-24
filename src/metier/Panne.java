@@ -23,6 +23,16 @@ public class Panne {
         this.START_DATE = START_DATE;
         this.END_DATE = END_DATE;
     }
+
+    public Panne(int ID_PANNE, String TITRE, String DESCRIPTION, LocalDate START_DATE, LocalDate END_DATE, Machine machine) {
+        this.ID_PANNE = ID_PANNE;
+        this.TITRE = TITRE;
+        this.DESCRIPTION = DESCRIPTION;
+        this.START_DATE = START_DATE;
+        this.END_DATE = END_DATE;
+        this.machine = machine;
+    }
+
     public Panne() {
 
     }

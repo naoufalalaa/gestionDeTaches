@@ -10,7 +10,7 @@
    <children>
       <BorderPane fx:id="Window" layoutX="220.0" layoutY="226.0" maxHeight="518.0" maxWidth="835.0" minHeight="518.0" minWidth="834.0" prefHeight="518.0" prefWidth="835.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <AnchorPane  minWidth="20" prefHeight="518.0" prefWidth="40.0" style="-fx-background-color: linear-gradient(to top, #7398ea,  #eef,  #eef);" styleClass="sidebar" stylesheets="@../utils/css/machines.css" BorderPane.alignment="CENTER">
+            <AnchorPane  minWidth="20" prefHeight="300.0" prefWidth="40.0" style="-fx-background-color: linear-gradient(to top, #7398ea,  #eef,  #eef);" styleClass="sidebar" stylesheets="@../utils/css/machines.css" BorderPane.alignment="CENTER">
                <children>
                   <JFXButton contentDisplay="GRAPHIC_ONLY" layoutY="169.0" onAction="#loadMachinesPane" prefHeight="30" prefWidth="30">
                      <graphic>
