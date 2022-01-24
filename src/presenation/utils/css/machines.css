@@ -1,4 +1,6 @@
-
+AnchorPane {
+    -fx-background-color: white;
+}
 
 .search:focused {
     -fx-fill: #29b582;

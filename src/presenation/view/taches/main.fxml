@@ -16,18 +16,18 @@
    <children>
       <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="183.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="183.0">
          <image>
-            <Image url="@../../utils/images/dashboard_images/icons8-chercher-24.png" />
+            <Image url="@../../utils/images/dashboard_images/_icons8-chercher-24.png" />
          </image>
       </ImageView>
       <TextField fx:id="search_field" layoutX="238.0" layoutY="124.0" prefHeight="37.0" prefWidth="373.0" promptText="type here to search" style="-fx-background-color: white; -fx-background-radius: 2em;" AnchorPane.leftAnchor="211.0" AnchorPane.rightAnchor="211.0" />
       <AnchorPane prefHeight="80.0" prefWidth="782.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="93.0" fitWidth="805.0" layoutX="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="-18.0" AnchorPane.topAnchor="0.0">
+            <ImageView fitHeight="93.0" fitWidth="805.0" layoutX="0.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
                   <Image url="@../../utils/images/users/headingbackground.png" />
                </image>
             </ImageView>
-            <Text fill="WHITE" layoutX="14.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion des Tâches" wrappingWidth="389.5537109375">
+            <Text fill="#254891" layoutX="20.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion des Tâches" wrappingWidth="389.5537109375">
                <font>
                   <Font name="FreeMono Bold" size="24.0" />
                </font>

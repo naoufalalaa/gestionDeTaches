@@ -2,12 +2,11 @@
 .table-view .column-header,
 .table-view .column-header-background .filler {
     -fx-cell-size: 20;
-    -fx-background-color: #b15dbc;
+    -fx-background-color: #eef;
 }
 
 .table-view .column-header .label {
-
-    -fx-text-fill: white;
+    -fx-text-fill: #254891;
     -fx-font-weight: bold;
     -fx-alignment: CENTER_LEFT;
 }

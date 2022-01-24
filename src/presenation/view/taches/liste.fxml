@@ -14,7 +14,7 @@
    <children>
       <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="28.0" layoutY="121.0" onAction="#add">
          <graphic>
-            <ImageView fitHeight="32.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../utils/images/taches/icons8-plus-math-24.png" />
                </image>
@@ -23,16 +23,16 @@
       </JFXButton>
       <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="113.0" layoutY="121.0" onAction="#edit">
          <graphic>
-            <ImageView fitHeight="32.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../utils/images/taches/icons8-edit-24%20(1).png" />
+                  <Image url="@../../utils/images/taches/icons8-edit-24(1).png" />
                </image>
             </ImageView>
          </graphic>
       </JFXButton>
       <JFXButton alignment="CENTER" contentDisplay="GRAPHIC_ONLY" layoutX="197.0" layoutY="121.0" onAction="#delete">
          <graphic>
-            <ImageView fitHeight="32.0" fitWidth="38.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../utils/images/taches/icons8-minus-24.png" />
                </image>
@@ -49,25 +49,25 @@
       </TableView>
       <ImageView fitHeight="21.0" fitWidth="26.0" layoutX="543.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../utils/images/dashboard_images/icons8-chercher-24.png" />
+            <Image url="@../../utils/images/dashboard_images/_icons8-chercher-24.png" />
          </image>
       </ImageView>
       <TextField fx:id="search_field" layoutX="571.0" layoutY="124.0" prefHeight="37.0" prefWidth="188.0" promptText="type here to search" style="-fx-background-color: white; -fx-background-radius: 2em;" AnchorPane.rightAnchor="28.0" />
       <AnchorPane prefHeight="80.0" prefWidth="782.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="80.0" fitWidth="790.0" layoutX="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-4.313720703125" AnchorPane.topAnchor="0.0">
+            <ImageView fitHeight="80.0" fitWidth="790.0" layoutX="0.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0.0">
                <image>
                   <Image url="@../../utils/images/users/headingbackground.png" />
                </image>
             </ImageView>
-            <Text fill="WHITE" layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Taches de la panne:" wrappingWidth="265.5537109375">
+            <Text fill="#254891" layoutX="40.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Taches de la panne:" wrappingWidth="265.5537109375">
                <font>
                   <Font name="FreeMono Bold" size="24.0" />
                </font>
             </Text>
-            <Text fx:id="panne_title" fill="WHITE" layoutX="261.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0"  wrappingWidth="509.5537109375">
+            <Text fx:id="panne_title" fill="#254891" layoutX="261.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="509.5537109375">
                <font>
-                  <Font name="FreeMono Bold" size="24.0" />
+                  <Font name="FreeMono Black" size="24.0" />
                </font>
             </Text>
          </children>

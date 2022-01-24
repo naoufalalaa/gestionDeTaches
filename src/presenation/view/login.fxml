@@ -30,7 +30,7 @@
             <Text fx:id="loginstatus" fill="RED" layoutX="56.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" " wrappingWidth="264.0000016512349" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="14.0" layoutY="18.0" prefHeight="410.0" prefWidth="327.0" style="-fx-background-color: linear-gradient(to right top, #153769, #0069a2, #009ca9, #00ca79, #a8eb12); -fx-background-radius: 1em;" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="20.0">
+      <AnchorPane layoutX="14.0" layoutY="18.0" prefHeight="410.0" prefWidth="327.0" style="-fx-background-color: linear-gradient(to right top, #0c2250, #254891, #4670c9, #6a98f6, #a8eb12); -fx-background-radius: 1em;" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="20.0">
          <effect>
             <DropShadow />
          </effect>

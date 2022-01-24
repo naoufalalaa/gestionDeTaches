@@ -10,40 +10,40 @@
    <children>
       <BorderPane fx:id="Window" layoutX="220.0" layoutY="226.0" maxHeight="518.0" maxWidth="835.0" minHeight="518.0" minWidth="834.0" prefHeight="518.0" prefWidth="835.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <AnchorPane maxWidth="56.0" minWidth="56.0" prefHeight="518.0" prefWidth="56.0" style="-fx-background-color: linear-gradient(to right top, #845ec2, #9c5dc0, #b15dbc, #c55cb7, #d65db1);;" styleClass="sidebar" stylesheets="@../utils/css/machines.css" BorderPane.alignment="CENTER">
+            <AnchorPane  minWidth="20" prefHeight="518.0" prefWidth="40.0" style="-fx-background-color: linear-gradient(to top, #7398ea,  #eef,  #eef);" styleClass="sidebar" stylesheets="@../utils/css/machines.css" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton contentDisplay="GRAPHIC_ONLY" layoutY="169.0" onAction="#loadMachinesPane" prefHeight="41.0" prefWidth="56.0">
+                  <JFXButton contentDisplay="GRAPHIC_ONLY" layoutY="169.0" onAction="#loadMachinesPane" prefHeight="30" prefWidth="30">
                      <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20" fitWidth="20" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../utils/images/dashboard_images/icons8-dashboard-layout-24.png" />
+                              <Image url="@../utils/images/dashboard_images/_icons8-dashboard-layout-24.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="usersButton" contentDisplay="GRAPHIC_ONLY" layoutY="220.0" onAction="#loadUsersPane" prefHeight="41.0" prefWidth="56.0">
+                  <JFXButton fx:id="usersButton" contentDisplay="GRAPHIC_ONLY" layoutY="220.0" onAction="#loadUsersPane" prefHeight="30" prefWidth="30">
                      <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20" fitWidth="20" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../utils/images/dashboard_images/icons8-groupe-d'utilisateurs-homme-femme-24.png" />
+                              <Image url="@../utils/images/dashboard_images/_icons8-groupe-d'utilisateurs-homme-femme-24.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton contentDisplay="GRAPHIC_ONLY" layoutY="471.0" onAction="#close" prefHeight="41.0" prefWidth="56.0">
+                  <JFXButton contentDisplay="GRAPHIC_ONLY" layoutY="471.0" onAction="#close" prefHeight="30" prefWidth="30">
                      <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20" fitWidth="20" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../utils/images/dashboard_images/icons8-sortie-imac-24.png" />
+                              <Image url="@../utils/images/dashboard_images/_icons8-sortie-imac-24.png" />
                            </image>
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton contentDisplay="GRAPHIC_ONLY" layoutY="270.0" onAction="#loadTachesPane" prefHeight="41.0" prefWidth="56.0">
+                  <JFXButton contentDisplay="GRAPHIC_ONLY" layoutY="270.0" onAction="#loadTachesPane" prefHeight="30" prefWidth="30">
                      <graphic>
-                        <ImageView fitHeight="26.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="20" fitWidth="20" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../utils/images/taches/icons8-documents-24.png" />
+                              <Image url="@../utils/images/taches/_icons8-documents-24.png" />
                            </image>
                         </ImageView>
                      </graphic>
