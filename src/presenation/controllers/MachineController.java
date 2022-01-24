@@ -49,7 +49,7 @@ public class MachineController implements Initializable
             nom.setText(machine.getNOM());
             reference.setText(machine.getREFERENCE());
             modele.setText(String.valueOf(machine.getMODEL()));
-            box.setStyle("-fx-background-color: #"+colors[(int)(Math.random()*colors.length)]+";"+
+            box.setStyle("-fx-background-color: #eef;"+
                     "-fx-background-radius: 15;" +
                     "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1),10,0,0,10);");
         this.machine = machine;
