@@ -3,9 +3,10 @@ package metier;
 import com.jfoenix.controls.JFXComboBox;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 
-public class Tache {
+public class Tache implements Comparable<Tache>{
     private int ID_TACHE;
     private String TITRE;
     private String DESCRIPTION;
@@ -137,4 +138,14 @@ public class Tache {
                 ", INTERVENANT=" + INTERVENANT +
                 '}';
     }
+    @Override
+    public int compareTo(Tache t) {
+        return this.getSTART_DATE().compareTo(t.getSTART_DATE());
+    }
+    Comparator<Tache> CompareByStartDate = new Comparator<Tache>() {
+        @Override
+        public int compare(Tache o1, Tache o2) {
+            return o1.getSTART_DATE().compareTo(o2.getEND_DATE());
+        }
+    };
 }

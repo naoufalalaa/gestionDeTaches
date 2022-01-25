@@ -16,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.util.StringConverter;
 import metier.*;
 
 import java.net.URL;
@@ -23,10 +24,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class PaneController implements Initializable {
     private IMetier metier;
@@ -57,39 +55,51 @@ public class PaneController implements Initializable {
         this.panne = panne;
     }
 
+    public int dateToInt(LocalDate date){
+        int days = (int) ChronoUnit.DAYS.between(LocalDate.of(1,1,1),date);
+        return days;
+    }
+
+    public String intToDate(int Days){
+        double res ;
+        int temp = Days;
+        int years = (int) (temp / 365.2425);
+        res = temp/365.2425 - years;
+        int months = (int) ((res*365.2425) /30.417);
+        res = ((res*365.2425) /30.417) - months ;
+        int days = (int) (res*30.417);
+        years++;
+        months++;
+        days++;
+
+        return (months<10)? (days<10)? ((years)+"-0"+(months)+"-0"+(days)):((years)+"-0"+(months)+"-"+(days)) : (days<10)? ((years)+"-"+(months)+"-0"+(days)):((years)+"-"+(months)+"-"+(days));
+    }
 
     @FXML
     public void click(MouseEvent event) {
         Scene scene = ((Node) event.getSource()).getScene();
         BorderPane window = (BorderPane) scene.lookup("#Window");
         try {
-            /*
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../view/gantt/main.fxml"));
-            Pane pane = loader.load();
-
-            //passing data to gantt view
-            // always use ids !
-            Text title = (Text) pane.lookup("#title");
-            title.setText(panne.getTITRE()+" "+panne.getID_PANNE());
-            */
             int idPanne =panne.getID_PANNE();
             List<Tache> taches= metier.findTacheByIDPanne(idPanne);
             int nbTaches = taches.size();
-            List<GANTT.Tache> taches1 = new ArrayList<>();
 
+            Comparator<Tache> CompareByStartDate = new Comparator<Tache>() {
+                @Override
+                public int compare(Tache o1, Tache o2) {
+                    return o1.getSTART_DATE().compareTo(o2.getEND_DATE());
+                }
+            };
+            Collections.sort(taches,CompareByStartDate);
             String[] machines = new String[taches.size()];
             for (int k = 0;k < taches.size() ; k++){
                 machines[k] = taches.get(k).getTITRE();
             }
+            String[] dates = new String[nbTaches];
             for (int i=0;i<nbTaches;i++){
-                long duration = ChronoUnit.DAYS.between(taches.get(i).getSTART_DATE(),taches.get(i).getEND_DATE());
-                if(i==0) {
-                    taches1.add(new GANTT.Tache(duration, taches.get(i).getTITRE(), taches.get(i).getSTATUT()));
-                }else {
-                    taches1.add(new GANTT.Tache(duration, taches.get(i).getTITRE(), taches.get(i).getSTATUT(), taches1.get(i-1)));
-                }
+                dates[i] = taches.get(i).getSTART_DATE().toString();
             }
+
 
             final NumberAxis xAxis = new NumberAxis();
             final CategoryAxis yAxis = new CategoryAxis();
@@ -98,7 +108,21 @@ public class PaneController implements Initializable {
             xAxis.setTickLabelFill(Color.CHOCOLATE);
 
             // date de fin de la panne
-            xAxis.setMinorTickCount((int) ChronoUnit.DAYS.between(panne.getSTART_DATE(),panne.getEND_DATE()));
+            xAxis.setMinorTickCount(dateToInt(panne.getEND_DATE())/dateToInt(panne.getSTART_DATE()));
+
+            xAxis.setTickLabelFormatter(new StringConverter<Number>() {
+                @Override
+                public String toString(Number object) {
+                    int obj = object.intValue();
+                    obj += dateToInt(panne.getSTART_DATE()) ;
+                    return (object.intValue()==0)? panne.getSTART_DATE().toString() : intToDate(obj);
+                }
+
+                @Override
+                public Number fromString(String string) {
+                    return null;
+                }
+            });
 
 
             yAxis.setLabel("");
@@ -107,18 +131,13 @@ public class PaneController implements Initializable {
             yAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(machines)));
 
             chart.setTitle(panne.getTITRE());
-            chart.setLegendVisible(false);
+            chart.setLegendVisible(true);
+
             chart.setBlockHeight( 50);
-            double offset;
             XYChart.Series series;
             for (int i = taches.size()-1 ; i >=0 ; i--){
                 series = new XYChart.Series();
-                offset = 0;
-
-                for(int j = 0; j <= i ; j++){
-                    offset+= taches1.get(j).getPrevious().getDuration();
-                }
-                series.getData().add(new XYChart.Data(offset, taches1.get(i).getName(), new GanttChart.ExtraData( taches1.get(i).getDuration(), taches1.get(i).getStatus())));
+                series.getData().add(new XYChart.Data(dateToInt(taches.get(i).getSTART_DATE())-dateToInt(panne.getSTART_DATE()), taches.get(i).getTITRE(), new GanttChart.ExtraData( dateToInt(taches.get(i).getEND_DATE())-dateToInt(taches.get(i).getSTART_DATE()), taches.get(i).getSTATUT())));
                 chart.getData().add(series);
             }
 

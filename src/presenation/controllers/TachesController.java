@@ -123,23 +123,7 @@ public class TachesController implements Initializable {
 
 
 
-    public List<Panne> getPannesList() {
-        List<Panne> pannes= new ArrayList<>();
-        Panne panne1 = new Panne();
-        panne1.setTITRE("disque dur fragmenté,");
-        pannes.add(panne1);
 
-        Panne panne2 = new Panne();
-        panne2.setTITRE("manque d'espace disque");
-        pannes.add(panne2);
-
-
-
-
-        return pannes;
-
-
-    }
 
 
     //function for loading machines
